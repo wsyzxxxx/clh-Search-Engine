@@ -1,0 +1,246 @@
+<!--?xml version="1.0" encoding="UTF-8"?-->
+<!--
+    需要传入的数据：
+    String keyword
+    list<路线>
+    list<攻略>
+    list<景点>
+    list<相关搜索关键词>
+    list<相关景点>
+-->
+
+
+
+<html xmlns:th="http://www.thymeleaf.org">
+ <head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
+  <title th:text="${keyword}+'- 搜索结果'">
+    </title>
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <script type="text/javascript" async src="http://c.cnzz.com/core.php?web_id=30065558&amp;t=q">
+    </script> 
+  <script type="text/javascript" async src="http://w.cnzz.com/c.php?id=30065558&amp;async=1">
+    </script> 
+  <script type="text/javascript">
+
+//<![CDATA[
+
+window.Env = {"hotel_mdd_info":{"lat":30.229987691291,"lng":120.13131284148,"zoom":6},"country_mddid":21536,"is_cnmain":true,"search_keyword":"\u897f\u6e56","search_seo_type":"poi","search_type":"","search_req_k":null,"search_stid":null,"search_req_f":null,"search_req_d":null,"search_kt":1,"search_page":1,"search_total":750,"search_seid":"87EEF33D-946A-4C63-9847-82648385E0B9","is_async_site_search":1,"WWW_HOST":"www.mafengwo.cn","IMG_HOST":"images.mafengwo.net","P_HOST":"passport.mafengwo.cn","P_HTTP":"https:\/\/passport.mafengwo.cn","PAGELET_HTTP":"http:\/\/pagelet.mafengwo.cn","JS_HOST":"js.mafengwo.net","UID":0,"CSTK":"50d1271dc465a39f17e8d3319bf62b1e_ab8f47d2996e5666c19c5d31d4612cb6","GOOGLE_MAP_KEY":"AIzaSyD-Su0x_rPy1xehlMBcMyTqWkU49Bk53nQ","TONGJI_HOST":"tongji.mafengwo.cn"};
+
+//]]>
+    </script> 
+  <link href="http://css.mafengwo.net/css/cv/css+base:css+jquery.suggest:css+plugins:css+plugins+jquery.jgrowl:css+other+popup^a1Q^1527308432.css" rel="stylesheet" type="text/css"> 
+  <link href="http://css.mafengwo.net/css/mfw-search/mfw-search.css?1517878774" rel="stylesheet" type="text/css">
+  <script language="javascript" src="http://js.mafengwo.net/js/cv/js+jquery-1.8.1.min:js+global+json2:js+M+Module:js+M+M:js+M+Log:js+m.statistics:js+advert+inspector^alw^1527559450.js" type="text/javascript" crossorigin="anonymous">
+    </script> 
+  <script async src="http://js.mafengwo.net/js/cv/js+Dropdown:js+pageletcommon+pageHeadUserInfoWWWNormal:js+jquery.tmpl:js+M+module+InputListener:js+M+module+SuggestionXHR:js+M+module+DropList:js+M+module+Suggestion:js+M+module+MesSearchEvent:js+SiteSearch:js+search+header:js+M+module+Pagination:js+M+module+dialog+Layer:js+M+module+dialog+DialogBase:js+M+module+dialog+Dialog:js+M+module+dialog+alert:js+M+module+TopTip:js+hotel+mfwmap+mfwmap-util:js+hotel+mfwmap+mfwmap-event:js+hotel+mfwmap+mfwmap-runtime-google:js+hotel+mfwmap+mfwmap-runtime-amap:js+hotel+mfwmap+mfwmap-runtime-leaflet:js+hotel+mfwmap+mfwmap:js+M+module+Storage:js+xdate:js+hotel+module+ModuleProvider:js+hotel+module+BookingDate:js+letterTip:js+search+index:js+M+module+PageAdmin:js+M+module+Cookie:js+M+module+ResourceKeeper:js+jquery.jgrowl.min:js+AMessage:js+M+module+FrequencyVerifyControl:js+M+module+FrequencySystemVerify:js+ALogin:js+AFeedback:js+ACnzzGaLog:js+ARecruit:js+ALazyLoad^alRQ^1531130229.js" crossorigin="anonymous">
+    </script> 
+ </head> 
+ <body>
+  <div class="s-head">
+   <div class="wid clearfix">
+       <a href="/">
+    <div class="s-head-logo" th:text="  首页" style="color: #ffc107; font-size: 25px; margin-left: 25px" >
+    </div></a>
+    <div class="searchbar">
+     <form action="/search" method="get">
+      <div class="search-wrapper">
+       <div class="search-input">
+        <input name="keyword" type="text" th:value="${keyword}" id="search-all" autocomplete="off">
+       </div>
+      </div>
+      <button><i class="fa fa-search"style="font-size:26px;color:#ffc107"> </i> </button>
+     </form>
+    </div>
+    <div id="pagelet-block-ba0cb5792ee8468494837c0a8d6ccc90" class="pagelet-block" data-api="apps:user:pagelet:pageViewHeadInfo" data-params="{&quot;type&quot;:1}" data-async="1" data-controller="/js/pageletcommon/pageHeadUserInfoWWWNormal">
+     <div class="login-out">
+
+      <a id="_j_showlogin" title="登录" href="/login" rel="nofollow"> 登录 </a>
+      <span class="split"> | </span>
+      <a href="/signup" title="注册帐号" rel="nofollow"> 注册 </a>
+     </div>
+    </div>
+   </div>
+  </div>
+  <div class="mfw-search-main" id="_j_mfw_search_main">
+   <div class="s-nav"> 
+    <div class="wid"> 
+     <div class="nav-list clearfix"> 
+      <a href="#" class="on _j_search_link" data-is-redirect="1" data-search-category="all"> 全部 </a>
+      <a href="#" class=" _j_search_link" data-is-redirect="1" data-search-category="mdd"> 路线</a>
+      <a href="#" class=" _j_search_link" data-is-redirect="1" data-search-category="gonglve"> 攻略 </a>
+      <a href="#" class=" _j_search_link" data-is-redirect="1" data-search-category="poi"> 景点 </a>
+  </div>
+    </div> 
+   </div> 
+   <div class="wid clearfix"> 
+    <div class="ser-nums"> 
+     <div class="sr-nums"> 
+      <p class="ser-result-primary"> 以下是为您找到“西湖”相关结果987条 </p> 
+     </div> 
+    </div> 
+    <div class="flt1 ser-lt" id="_j_search_result_left"> 
+     <div class="_j_search_section" data-category="poi"> 
+      <div class="att-list">
+          <!--景点列表 -->
+       <ul> 
+        <li> 
+         <div class="clearfix"> 
+          <div class="flt1"> 
+           <a href="/detail" target="_blank" class="_j_search_link"> <img src="http://b4-q.mafengwo.net/s5/M00/D2/07/wKgB3FH84-iAbKS0AAvK9k8pcNc49.jpeg?imageMogr2%2Fthumbnail%2F%21180x180r%2Fgravity%2FCenter%2Fcrop%2F%21180x180%2Fquality%2F90" style="width:150px;height:90px;"> </a>
+          </div> 
+          <div class="ct-text "> 
+           <h3> <a href="/detail" target="_blank" class="_j_search_link"> 景点 - 西湖 </a> </h3>
+           <p class="seg-desc"> 首批国家5A级旅游景区和中国十大风景名胜之一，2011年被列入世界遗产名录。 以一山、二塔、三岛、三堤、五湖为基本格局，著名的西湖十景... </p>
+
+          </div> 
+         </div> </li> 
+        <li> 
+         <div class="clearfix"> 
+          <div class="flt1"> 
+           <a href="/detail" target="_blank" class="_j_search_link"> <img src="http://n4-q.mafengwo.net/s8/M00/94/CA/wKgBpVVYhKGAXDIcAC_3RWbngvk35.jpeg?imageMogr2%2Fthumbnail%2F%21180x180r%2Fgravity%2FCenter%2Fcrop%2F%21180x180%2Fquality%2F90" style="width:150px;height:90px;"> </a>
+          </div> 
+          <div class="ct-text "> 
+           <h3> <a href="/detail" target="_blank" class="_j_search_link"> 景点 - 瘦西湖 Slender West Lake </a> </h3>
+           <p class="seg-desc"> 著名的湖上园林，自然景观旖旎多姿，建有很多风景建筑，是扬州雍容华贵的象征，享有“园林之盛，甲于天下”美誉。 瘦西湖以“瘦”为特征... </p>
+
+          </div> 
+         </div> </li> 
+        <li> 
+         <div class="clearfix"> 
+          <div class="flt1"> 
+           <a href="/detail" target="_blank" class="_j_search_link"> <img src="http://n3-q.mafengwo.net/s6/M00/EC/73/wKgB4lJXmBqAezaVAAQ9Rh3ILOQ33.jpeg?imageMogr2%2Fthumbnail%2F%21180x180r%2Fgravity%2FCenter%2Fcrop%2F%21180x180%2Fquality%2F90" style="width:150px;height:90px;"> </a>
+          </div> 
+          <div class="ct-text "> 
+           <h3> <a href="/detail" target="_blank" class="_j_search_link"> 景点 -西湖音乐喷泉 </a> </h3>
+           <p class="seg-desc"> ·位于湖滨三公园附近的湖面上，是一座可以通过水形变化来表现乐曲的音乐喷泉。 ·喷泉形状呈弧形，有6大喷嘴类别，灯光全采用LED水灯。... </p>
+          </div> 
+         </div> </li> 
+       </ul> 
+      </div> 
+     </div> 
+     <div class="heg30"> 
+     </div> 
+     <div class="_j_search_section" data-category="article_gonglve">
+
+      <div class="clearfix ser-title"> 
+       <h2> <a th:href="@{/search(keyword=${keyword},type=2)}" target="_blank" class="_j_search_link" data-is-redirect="1"> 旅游攻略 </a> </h2>
+       <a href="#" target="_blank" class="_j_search_link" data-is-redirect="1"> 查看更多旅游攻略 &gt;&gt; </a>
+      </div> 
+      <div class="att-list">
+          <!--攻略列表 -->
+
+          <ul>
+        <li> 
+         <div class="clearfix"> 
+          <div class="flt1"> 
+           <a href="#" target="_blank" class="_j_search_link"> <img src="http://n4-q.mafengwo.net/s11/M00/25/DA/wKgBEFpsibOAaAedAAvxH9GV3ps86.jpeg?imageMogr2%2Fthumbnail%2F%21300x180r%2Fgravity%2FCenter%2Fcrop%2F%21300x180%2Fquality%2F90" style="width:150px;height:90px;"> </a>
+          </div> 
+          <div class="ct-text "> 
+           <h3> <a href="#" target="_blank" class="_j_search_link"> 宁波版“西湖”——月湖公园游览攻略 </a> </h3>
+           <p class="seg-desc"> 月湖之于宁波人或许正如西湖之于杭州人。月湖公园集大气和精致 </p>
+           <ul class="seg-info-list clearfix"> 
+            <li> <a href="#" target="_blank" class="_j_search_link"> 浙江-宁波 </a> </li>
+            <li> 2018-01-23 16:47:05 </li> 
+           </ul> 
+          </div> 
+         </div> </li> 
+        <li> 
+         <div class="clearfix"> 
+          <div class="flt1"> 
+           <a href="#" target="_blank" class="_j_search_link"> <img src="http://p1-q.mafengwo.net/s10/M00/25/E1/wKgBZ1n4PCOAWr2yAAxNhm93OCQ29.jpeg?imageMogr2%2Fthumbnail%2F%21300x180r%2Fgravity%2FCenter%2Fcrop%2F%21300x180%2Fquality%2F90" style="width:150px;height:90px;"> </a>
+          </div> 
+          <div class="ct-text "> 
+           <h3> <a href="/detail" target="_blank" class="_j_search_link">西湖十景大盘点，亲测评星 </a> </h3>
+           <p class="seg-desc"> 所谓西湖十景，就是对西湖及周边景点的评选。然而世人对西湖 十景有一些 </p>
+           <ul class="seg-info-list clearfix"> 
+            <li> <a href="#" target="_blank" class="_j_search_link"> 浙江-杭州 </a> </li>
+            <li> 2017-10-31 17:45:41 </li> 
+           </ul> 
+          </div> 
+         </div> </li> 
+        <li> 
+         <div class="clearfix"> 
+          <div class="flt1"> 
+           <a href="#" target="_blank" class="_j_search_link"> <img src="http://p1-q.mafengwo.net/s10/M00/4A/52/wKgBZ1n62s6AB6qjAAokE2tvnmc52.jpeg?imageMogr2%2Fthumbnail%2F%21300x180r%2Fgravity%2FCenter%2Fcrop%2F%21300x180%2Fquality%2F90" style="width:150px;height:90px;"> </a>
+          </div> 
+          <div class="ct-text "> 
+           <h3> <a href="/detail" target="_blank" class="_j_search_link">西湖周边一日游，古寺名刹全逛遍！ </a> </h3>
+           <p class="seg-desc"> 当天拜访的第一座寺院，是位于雷峰塔南南屏山慧日峰下的净慈禅寺。这座寺院初建于五代时期，经历了无数次的损毁和重 </p> 
+           <ul class="seg-info-list clearfix"> 
+            <li> <a href="#" target="_blank" class="_j_search_link"> 浙江-杭州 </a> </li>
+            <li> 2017-10-31 15:59:28 </li> 
+           </ul> 
+          </div> 
+         </div> </li> 
+       </ul> 
+      </div> 
+     </div> 
+     <div class="heg30"> 
+     </div> 
+
+     <div class="heg30"> 
+     </div> 
+
+     <div class="heg30"> 
+     </div> 
+     <div class="relevant-search _j_search_section" data-category="relevant"> 
+      <div class="clearfix ser-title"> 
+       <h2> 相关搜索 </h2> 
+      </div> 
+      <ul> 
+       <li> <a th:href="@{/search(keyword=${keyword},type=1)}" class="_j_search_link" data-is-redirect="1" data-keyword="西湖区"> 西湖区 </a> </li>
+       <li> <a href="http://www.mafengwo.cn/s.php?q=西湖区酒店" class="_j_search_link" data-is-redirect="1" data-keyword="西湖区酒店"> 西湖区酒店 </a> </li> 
+       <li> <a href="http://www.mafengwo.cn/s.php?q=西湖区麻辣烫" class="_j_search_link" data-is-redirect="1" data-keyword="西湖区麻辣烫"> 西湖区麻辣烫 </a> </li> 
+       <li> <a href="http://www.mafengwo.cn/s.php?q=西湖区文三路" class="_j_search_link" data-is-redirect="1" data-keyword="西湖区文三路"> 西湖区文三路 </a> </li> 
+       <li> <a href="http://www.mafengwo.cn/s.php?q=西湖区文二路如家商旅" class="_j_search_link" data-is-redirect="1" data-keyword="西湖区文二路如家商旅"> 西湖区文二路如家商旅 </a> </li> 
+       <li> <a href="http://www.mafengwo.cn/s.php?q=西湖区玉皇山路68号" class="_j_search_link" data-is-redirect="1" data-keyword="西湖区玉皇山路68号"> 西湖区玉皇山路68号 </a> </li> 
+       <li> <a href="http://www.mafengwo.cn/s.php?q=西湖区旅游攻略" class="_j_search_link" data-is-redirect="1" data-keyword="西湖区旅游攻略"> 西湖区旅游攻略 </a> </li> 
+       <li> <a href="http://www.mafengwo.cn/s.php?q=西湖区袁浦镇" class="_j_search_link" data-is-redirect="1" data-keyword="西湖区袁浦镇"> 西湖区袁浦镇 </a> </li> 
+      </ul> 
+     </div> 
+    </div> 
+    <div class="flt1 ser-rt">
+     <div class="s-hr"> 
+     </div> 
+     <div class="_j_search_section" data-category="poi"> 
+      <div class="clearfix ser-title"> 
+       <h2> <a href="#" target="_blank" class="_j_search_link"> 附近热门景点 </a> </h2>
+       <a href="#" target="_blank" class="_j_search_link"> 全部景点 &gt;&gt; </a>
+      </div> 
+      <div class="hot-att"> 
+       <ul class="clearfix"> 
+        <li> <a href="#" target="_blank" class="_j_search_link"> <img src="http://p3-q.mafengwo.net/s2/M00/89/D5/wKgBpU5CDtzRm1dsAAC9WaZ-c2Q27.jpeg?imageMogr2%2Fthumbnail%2F%21180x180r%2Fgravity%2FCenter%2Fcrop%2F%21180x180%2Fquality%2F90" style="width:90px;height:90px;"> </a> <p> <a href="http://www.mafengwo.cn/poi/21517.html" target="_blank" class="_j_search_link"> 湖心亭 </a> </p> </li>
+        <li> <a href="#" target="_blank" class="_j_search_link"> <img src="http://b1-q.mafengwo.net/s7/M00/0C/F6/wKgB6lOu4ICAay55AAqlfMdq7Js25.jpeg?imageMogr2%2Fthumbnail%2F%21180x180r%2Fgravity%2FCenter%2Fcrop%2F%21180x180%2Fquality%2F90" style="width:90px;height:90px;"> </a> <p> <a href="http://www.mafengwo.cn/poi/5494198.html" target="_blank" class="_j_search_link"> 闻莺阁 </a> </p> </li>
+        <li> <a href="#" target="_blank" class="_j_search_link"> <img src="http://b1-q.mafengwo.net/s10/M00/15/88/wKgBZ1nNtP-AeWGQAANKzBVAJRE33.jpeg?imageMogr2%2Fthumbnail%2F%21180x180r%2Fgravity%2FCenter%2Fcrop%2F%21180x180%2Fquality%2F90" style="width:90px;height:90px;"> </a> <p> <a href="http://www.mafengwo.cn/poi/6873248.html" target="_blank" class="_j_search_link"> COSTA COFFEE(杭州... </a> </p> </li>
+        <li> <a href="#" target="_blank" class="_j_search_link"> <img src="http://b1-q.mafengwo.net/s6/M00/FA/A9/wKgB4lKWzRSAcMTGAArfIlH9ZjE47.jpeg?imageMogr2%2Fthumbnail%2F%21180x180r%2Fgravity%2FCenter%2Fcrop%2F%21180x180%2Fquality%2F90" style="width:90px;height:90px;"> </a> <p> <a href="http://www.mafengwo.cn/poi/32140.html" target="_blank" class="_j_search_link"> COSTA COFFEE(平湖... </a> </p> </li>
+        <li> <a href="#" target="_blank" class="_j_search_link"> <img src="http://p3-q.mafengwo.net/s6/M00/DA/BF/wKgB4lLyRVGADUM8AAXj7n5RTPQ64.jpeg?imageMogr2%2Fthumbnail%2F%21180x180r%2Fgravity%2FCenter%2Fcrop%2F%21180x180%2Fquality%2F90" style="width:90px;height:90px;"> </a> <p> <a href="http://www.mafengwo.cn/poi/5492653.html" target="_blank" class="_j_search_link"> COSTA COFFEE </a> </p> </li>
+        <li> <a href="#" target="_blank" class="_j_search_link"> <img src="http://n2-q.mafengwo.net/s6/M00/A6/F3/wKgB4lI_5a6AOEXtAAB5eQqoxUo85.jpeg?imageMogr2%2Fthumbnail%2F%21180x180r%2Fgravity%2FCenter%2Fcrop%2F%21180x180%2Fquality%2F90" style="width:90px;height:90px;"> </a> <p> <a href="http://www.mafengwo.cn/poi/4055408.html" target="_blank" class="_j_search_link"> 阮墩环碧 </a> </p> </li>
+        <li> <a href="#" target="_blank" class="_j_search_link"> <img src="http://b3-q.mafengwo.net/s11/M00/AA/38/wKgBEFtINI-AZ0ApAAloUbhS89032.jpeg?imageMogr2%2Fthumbnail%2F%21180x180r%2Fgravity%2FCenter%2Fcrop%2F%21180x180%2Fquality%2F90" style="width:90px;height:90px;"> </a> <p> <a href="http://www.mafengwo.cn/poi/33550264.html" target="_blank" class="_j_search_link"> 湖天一碧 </a> </p> </li>
+        <li> <a href="#" target="_blank" class="_j_search_link"> <img src="http://file30.mafengwo.net/M00/16/8F/wKgBpVXBdX6AEHv2AAAVggxW3Kw138.mdd.w135.gif" style="width:90px;height:90px;"> </a> <p> <a href="http://www.mafengwo.cn/poi/33551084.html" target="_blank" class="_j_search_link"> 中央美术学院华东... </a> </p> </li>
+       </ul> 
+      </div> 
+     </div> 
+    </div>
+   </div> 
+
+  </div> 
+  <link href="http://css.mafengwo.net/css/mfw-footer.css?1517883076" rel="stylesheet" type="text/css"> 
+
+  <!-- 意见反馈依托的页面模板 --> 
+  <script type="text/x-jquery-tmpl" id="_j_tmpl_feedback">
+
+    </script> 
+  <script language="javascript" type="text/javascript">
+//<![CDATA[
+
+if (typeof M !== "undefined" && typeof M.loadResource === "function") {
+M.loadResource("http://js.mafengwo.net/js/cv/js+Dropdown:js+pageletcommon+pageHeadUserInfoWWWNormal:js+jquery.tmpl:js+M+module+InputListener:js+M+module+SuggestionXHR:js+M+module+DropList:js+M+module+Suggestion:js+M+module+MesSearchEvent:js+SiteSearch:js+search+header:js+M+module+Pagination:js+M+module+dialog+Layer:js+M+module+dialog+DialogBase:js+M+module+dialog+Dialog:js+M+module+dialog+alert:js+M+module+TopTip:js+hotel+mfwmap+mfwmap-util:js+hotel+mfwmap+mfwmap-event:js+hotel+mfwmap+mfwmap-runtime-google:js+hotel+mfwmap+mfwmap-runtime-amap:js+hotel+mfwmap+mfwmap-runtime-leaflet:js+hotel+mfwmap+mfwmap:js+M+module+Storage:js+xdate:js+hotel+module+ModuleProvider:js+hotel+module+BookingDate:js+letterTip:js+search+index:js+M+module+PageAdmin:js+M+module+Cookie:js+M+module+ResourceKeeper:js+jquery.jgrowl.min:js+AMessage:js+M+module+FrequencyVerifyControl:js+M+module+FrequencySystemVerify:js+ALogin:js+AFeedback:js+ACnzzGaLog:js+ARecruit:js+ALazyLoad^alRQ^1531130229.js");
+}
+
+//]]>
+    </script>   
+ </body>
+</html>
+
+
