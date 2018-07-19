@@ -25,7 +25,7 @@ public class Main {
             Vector<String> tags = new Vector<>();
             tags.add("yes" + i);
             data.setUrl(i + ".html");
-            data.setTitle(i + "traveal");
+            data.setTitle(i + "旅游");
             data.setPrice(i + 100);
             data.setChildPrice(i + 50);
             data.setTags(tags);
@@ -35,7 +35,7 @@ public class Main {
             //searchEngine.createIndex("clh-search-engine");
             searchEngine.updateData("clh-search-engine", testData);
 
-            Vector<WebPageData> result = searchEngine.search("traveal",
+            Vector<WebPageData> result = searchEngine.search("旅游",
                     "clh-search-engine",
                     "title", "tags");
             System.out.println("result size = " + result.size());

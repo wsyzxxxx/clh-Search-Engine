@@ -5,6 +5,8 @@ import org.apache.http.HttpHost;
 import org.apache.lucene.util.QueryBuilder;
 import org.elasticsearch.action.admin.indices.create.CreateIndexRequest;
 import org.elasticsearch.action.admin.indices.delete.DeleteIndexRequest;
+import org.elasticsearch.action.admin.indices.flush.FlushRequest;
+import org.elasticsearch.action.admin.indices.refresh.RefreshRequest;
 import org.elasticsearch.action.delete.DeleteRequest;
 import org.elasticsearch.action.delete.DeleteResponse;
 import org.elasticsearch.action.get.GetRequest;
@@ -94,7 +96,8 @@ public class SearchEngine{
             IndexRequest indexRequest = new IndexRequest(indexName, "doc");
             indexRequest.source(jsonString, XContentType.JSON);
             IndexResponse indexResponse = client.index(indexRequest);
-            System.err.println(indexResponse.toString());
         }
+        RefreshRequest refresh = new RefreshRequest(indexName);
+        client.indices().refresh(refresh);
     }
 }
