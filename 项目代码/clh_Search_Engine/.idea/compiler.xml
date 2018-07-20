@@ -9,5 +9,8 @@
         <module name="clh_Search_Engine" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel target="1.8">
+      <module name="clh_Search_Engine" target="1.7" />
+    </bytecodeTargetLevel>
   </component>
 </project>
