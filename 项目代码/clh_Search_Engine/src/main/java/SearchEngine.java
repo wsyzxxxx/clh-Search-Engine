@@ -2,34 +2,23 @@ import DataFormat.WebPageData;
 import Spider.Spider;
 import com.alibaba.fastjson.JSON;
 import org.apache.http.HttpHost;
-import org.apache.lucene.util.QueryBuilder;
 import org.elasticsearch.action.admin.indices.create.CreateIndexRequest;
 import org.elasticsearch.action.admin.indices.delete.DeleteIndexRequest;
-import org.elasticsearch.action.admin.indices.flush.FlushRequest;
 import org.elasticsearch.action.admin.indices.refresh.RefreshRequest;
-import org.elasticsearch.action.delete.DeleteRequest;
-import org.elasticsearch.action.delete.DeleteResponse;
 import org.elasticsearch.action.get.GetRequest;
 import org.elasticsearch.action.index.IndexRequest;
 import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.action.search.SearchRequest;
-import org.elasticsearch.action.search.SearchRequestBuilder;
 import org.elasticsearch.action.search.SearchResponse;
-import org.elasticsearch.action.update.UpdateRequest;
-import org.elasticsearch.action.update.UpdateRequestBuilder;
 import org.elasticsearch.client.*;
-import org.elasticsearch.common.unit.TimeValue;
 import org.elasticsearch.common.xcontent.XContentType;
-import org.elasticsearch.index.query.MultiMatchQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
-import org.elasticsearch.index.query.TermQueryBuilder;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.SearchHits;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 
 import java.io.IOException;
 import java.util.Vector;
-import java.util.concurrent.TimeUnit;
 
 public class SearchEngine{
     RestHighLevelClient client;
@@ -56,13 +45,18 @@ public class SearchEngine{
     }
 
     public Vector<WebPageData> search(String keyword, String indexName, String... fieldName) throws IOException, InterruptedException {
-        // TODO: implement
+        return search(keyword, 10, indexName, fieldName);
+    }
+
+    public Vector<WebPageData> search(String keyword, int returnSize, String indexName, String... fieldName) throws IOException, InterruptedException {
         GetRequest getRequest = new GetRequest();
 
         SearchRequest searchRequest = new SearchRequest(indexName);
         SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
         searchSourceBuilder.query(QueryBuilders.multiMatchQuery(keyword, fieldName));
+        searchSourceBuilder.size(returnSize);
         searchRequest.source(searchSourceBuilder);
+
 
         SearchResponse searchResponse = client.search(searchRequest);
 
@@ -77,9 +71,13 @@ public class SearchEngine{
         return result;
     }
 
-    public void updateData(String indexName, Spider spider) throws IOException {
-        // TODO: implement
-        Vector<WebPageData> updateContext = spider.getData();
+    public void updateData(String indexName, Spider... spider) throws IOException {
+        Vector<WebPageData> updateContext = new Vector<>();
+        for(Spider i : spider){
+            Vector<WebPageData> tempData = i.getData();
+            updateContext.addAll(tempData);
+        }
+
         updateData(indexName, updateContext);
 
     }

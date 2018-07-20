@@ -1,18 +1,7 @@
 import DataFormat.WebPageData;
 import Spider.Spider;
 import Spider.YouXiaKeSpider.YouXiaKeSpider;
-import com.alibaba.fastjson.JSON;
-import org.elasticsearch.action.search.SearchRequest;
-import org.elasticsearch.action.search.SearchResponse;
-import org.elasticsearch.common.unit.TimeValue;
-import org.elasticsearch.index.query.QueryBuilders;
-import org.elasticsearch.search.SearchHit;
-import org.elasticsearch.search.SearchHits;
-import org.elasticsearch.search.builder.SearchSourceBuilder;
-
-import java.io.IOException;
 import java.util.Vector;
-import java.util.concurrent.TimeUnit;
 
 public class Main {
     public static void main(String[] args){
@@ -20,10 +9,12 @@ public class Main {
         Spider spider = new YouXiaKeSpider();
         Vector<WebPageData> testData = new Vector<>();
 
-        for (int i = 0; i < 10; i++){
+        testData = spider.getData();
+
+        for (int i = 0; i < 100; i++){
             WebPageData data = new WebPageData();
             Vector<String> tags = new Vector<>();
-            tags.add("yes" + i);
+            tags.add("yes " + i);
             data.setUrl(i + ".html");
             data.setTitle(i + "旅游");
             data.setPrice(i + 100);
@@ -35,7 +26,7 @@ public class Main {
             //searchEngine.createIndex("clh-search-engine");
             searchEngine.updateData("clh-search-engine", testData);
 
-            Vector<WebPageData> result = searchEngine.search("旅游",
+            Vector<WebPageData> result = searchEngine.search("yes", 30,
                     "clh-search-engine",
                     "title", "tags");
             System.out.println("result size = " + result.size());
@@ -45,6 +36,5 @@ public class Main {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return;
     }
 }

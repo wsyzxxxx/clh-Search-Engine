@@ -70,8 +70,13 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
+<<<<<<< HEAD
                     <source>1.7</source>
                     <target>1.7</target>
+=======
+                    <source>10</source>
+                    <target>10</target>
+>>>>>>> 786c00c6cb3c0256702a4495db6ae1ac1b385d00
                 </configuration>
             </plugin>
         </plugins>
