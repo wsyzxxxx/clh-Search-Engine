@@ -1,0 +1,56 @@
+/* Normal white Button as seen on Google.com*/
+button1 {
+    color: #444444;
+    background: #F3F3F3;
+    border: 1px #DADADA solid;
+    padding: 5px 10px;
+    border-radius: 2px;
+    font-weight: bold;
+    font-size: 9pt;
+    outline: none;
+}
+
+button1:hover {
+    border: 1px #C6C6C6 solid;
+    box-shadow: 1px 1px 1px #EAEAEA;
+    color: #333333;
+    background: #F7F7F7;
+}
+
+button1:active {
+    box-shadow: inset 1px 1px 1px #DFDFDF;   
+}
+
+
+/* Orange button as seen on blogger.com*/
+button1.orange {
+    color: white;
+    border: 1px solid #FB8F3D; 
+    background: -webkit-linear-gradient(top, #FDA251, #FB8F3D);
+    background: -moz-linear-gradient(top, #FDA251, #FB8F3D);
+    background: -ms-linear-gradient(top, #FDA251, #FB8F3D);
+}
+
+button1.orange:hover {
+    border: 1px solid #EB5200;
+    background: -webkit-linear-gradient(top, #FD924C, #F9760B); 
+    background: -moz-linear-gradient(top, #FD924C, #F9760B); 
+    background: -ms-linear-gradient(top, #FD924C, #F9760B); 
+    box-shadow: 0 1px #EFEFEF;
+}
+
+button1.orange:active {
+    box-shadow: inset 0 1px 1px rgba(0,0,0,0.3);
+}
+
+/* Red Google Button as seen on drive.google.com */
+
+/*=======================================*/
+
+body {
+    margin: 50px;
+}
+
+h1 {
+    font: 150%/150% 'Freckle Face', cursive;
+}
