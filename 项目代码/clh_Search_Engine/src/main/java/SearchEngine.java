@@ -56,13 +56,18 @@ public class SearchEngine{
     }
 
     public Vector<WebPageData> search(String keyword, String indexName, String... fieldName) throws IOException, InterruptedException {
-        // TODO: implement
+        return search(keyword, 10, indexName, fieldName);
+    }
+
+    public Vector<WebPageData> search(String keyword, int returnSize, String indexName, String... fieldName) throws IOException, InterruptedException {
         GetRequest getRequest = new GetRequest();
 
         SearchRequest searchRequest = new SearchRequest(indexName);
         SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
         searchSourceBuilder.query(QueryBuilders.multiMatchQuery(keyword, fieldName));
+        searchSourceBuilder.size(returnSize);
         searchRequest.source(searchSourceBuilder);
+
 
         SearchResponse searchResponse = client.search(searchRequest);
 
@@ -77,9 +82,13 @@ public class SearchEngine{
         return result;
     }
 
-    public void updateData(String indexName, Spider spider) throws IOException {
-        // TODO: implement
-        Vector<WebPageData> updateContext = spider.getData();
+    public void updateData(String indexName, Spider... spider) throws IOException {
+        Vector<WebPageData> updateContext = new Vector<>();
+        for(Spider i : spider){
+            Vector<WebPageData> tempData = i.getData();
+            updateContext.addAll(tempData);
+        }
+
         updateData(indexName, updateContext);
 
     }

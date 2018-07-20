@@ -1,5 +1,6 @@
 package DataFormat;
 
+import java.util.Base64;
 import java.util.Vector;
 
 public class WebPageData {
@@ -8,6 +9,7 @@ public class WebPageData {
     private int price;
     private int childPrice;
     private Vector<String> tags;
+    //private Base64 picture;
 
     public String getTitle() {
         return title;
@@ -17,6 +19,7 @@ public class WebPageData {
         this.title = title;
     }
 
+
     public String getUrl() {
         return url;
     }
@@ -24,6 +27,7 @@ public class WebPageData {
     public void setUrl(String url) {
         this.url = url;
     }
+
 
     public int getPrice() {
         return price;
@@ -33,6 +37,7 @@ public class WebPageData {
         this.price = price;
     }
 
+
     public Vector<String> getTags() {
         return tags;
     }
@@ -40,6 +45,7 @@ public class WebPageData {
     public void setTags(Vector<String> tags) {
         this.tags = tags;
     }
+
 
     public int getChildPrice() {
         return childPrice;
@@ -49,4 +55,14 @@ public class WebPageData {
         this.childPrice = childPrice;
     }
 
+
+    /*
+    public Base64 getPicture() {
+        return picture;
+    }
+
+    public void setPicture(Base64 picture) {
+        this.picture = picture;
+    }
+    */
 }
