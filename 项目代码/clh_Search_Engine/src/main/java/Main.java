@@ -9,7 +9,9 @@ public class Main {
         Spider spider = new YouXiaKeSpider();
         Vector<WebPageData> testData = new Vector<>();
 
-        for (int i = 0; i < 10; i++){
+        testData = spider.getData();
+
+        for (int i = 0; i < 100; i++){
             WebPageData data = new WebPageData();
             Vector<String> tags = new Vector<>();
             tags.add("yes " + i);
@@ -24,7 +26,7 @@ public class Main {
             //searchEngine.createIndex("clh-search-engine");
             searchEngine.updateData("clh-search-engine", testData);
 
-            Vector<WebPageData> result = searchEngine.search("yes",
+            Vector<WebPageData> result = searchEngine.search("yes", 30,
                     "clh-search-engine",
                     "title", "tags");
             System.out.println("result size = " + result.size());
