@@ -202,7 +202,7 @@ window.Env = {"hotel_mdd_info":{"lat":30.229987691291,"lng":120.13131284148,"zoo
         <li>
          <div class="clearfix">
           <div class="flt1">
-           <a th:href="@{/detail(id=${xianlu.getTitle()},type=2)}" target="_blank" class="_j_search_link"> <img src="http://n4-q.mafengwo.net/s11/M00/25/DA/wKgBEFpsibOAaAedAAvxH9GV3ps86.jpeg?imageMogr2%2Fthumbnail%2F%21300x180r%2Fgravity%2FCenter%2Fcrop%2F%21300x180%2Fquality%2F90" style="width:150px;height:90px;"> </a>
+           <a th:href="@{/detail(id=${xianlu.getTitle()},type=2)}" target="_blank" class="_j_search_link"> <img th:src="'data:image/png;base64,'+${xianlu.getBase64PictureCode().get(0)}"  style="width:150px;height:90px;"> </a>
           </div>
           <div class="ct-text ">
            <h3> <a th:href="@{/detail(id=${xianlu.getTitle()},type=2)}" target="_blank" class="_j_search_link" th:text="${xianlu.getTitle()}">线路标题</a> </h3>

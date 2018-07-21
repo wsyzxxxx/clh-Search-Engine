@@ -1,6 +1,6 @@
 <!--?xml version="1.0" encoding="UTF-8"?-->
 <html  xmlns:th="http://www.thymeleaf.org">
-<head>
+<head onload="loadimg()">
     <link rel="icon" type="image/png" href="images/icons/favicon.ico"/>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title th:text="${keyword}+'-线路搜索'">
@@ -44,6 +44,7 @@
 
 </head>
 <body>
+
 <div class="s-head">
     <div class="wid clearfix">
         <a href="/">
@@ -102,7 +103,11 @@
 <div th:each="xianlu:${listofxianlu}">
                 <a class="item clearfix" th:href="@{/detail(id=${xianlu.getTitle()},type=2)}" target="_blank">
                     <div class="image">
-                        <img src="http://p3-q.mafengwo.net/s10/M00/A1/85/wKgBZ1oyLICAHdPWAACp3XXprSk52.jpeg?imageMogr2%2Fthumbnail%2F%21400x300r%2Fgravity%2FCenter%2Fcrop%2F%21400x300%2Fquality%2F100" height="150" width="200">
+                        <!--<img src="http://p3-q.mafengwo.net/s10/M00/A1/85/wKgBZ1oyLICAHdPWAACp3XXprSk52.jpeg?imageMogr2%2Fthumbnail%2F%21400x300r%2Fgravity%2FCenter%2Fcrop%2F%21400x300%2Fquality%2F100" height="150" width="200">
+
+                        <img th:src="@{/photo(id=${xianlu.getTitle()})}"  height="150" width="200">
+ -->
+                        <img th:src="'data:image/png;base64,'+${xianlu.getBase64PictureCode().get(0)}"  height="150" width="200">
                     </div>
                     <div class="detail">
                         <div class="info">
@@ -125,151 +130,6 @@
 
 
 </th:block>
-<!--
-                <a class="item clearfix" th:href="@{/detail(id=1,type=2)}" target="_blank">
-                    <div class="image">
-                        <img src="http://p3-q.mafengwo.net/s10/M00/A1/85/wKgBZ1oyLICAHdPWAACp3XXprSk52.jpeg?imageMogr2%2Fthumbnail%2F%21400x300r%2Fgravity%2FCenter%2Fcrop%2F%21400x300%2Fquality%2F100" height="150" width="200">
-                    </div>
-                    <div class="detail">
-                        <div class="info">
-                            <h3> 咨询立减现金【西沙长乐公主号】三亚-西沙群岛-三亚4天3晚圆梦爱国邮轮之旅（一价全含+中国的马尔代夫+五星管家服务） </h3>
-                            <div class="s-tag">
-                                <span> 纯玩无购物 </span>
-                                <span> 游玩时间充足 </span>
-                                <span> 原始岛屿沙滩 </span>
-                                <span> 邮轮自助餐 </span>
-                            </div>
-                            <p> <span class="t"> 班期:暑假07/24-10/29 </span> </p>
-                        </div>
-                        <div class="extra">
-                            <div class="action">
-                                <span class="btn"> 查看详情 </span>
-                                <div class="promo-tag">
-                                </div>
-                            </div>
-                            <span class="price"> <b> ￥ </b> <strong> 3980 </strong> 起 </span>
-                        </div>
-                    </div> </a>
-
-
-                <a class="item clearfix" href="/sales/2232039.html" target="_blank">
-                    <div class="image">
-                        <img src="http://n4-q.mafengwo.net/s11/M00/35/07/wKgBEFqbx86AQHZfAAQQw5OxKWM29.jpeg?imageMogr2%2Fthumbnail%2F%21400x300r%2Fgravity%2FCenter%2Fcrop%2F%21400x300%2Fquality%2F100" height="150" width="200">>
-                    </div>
-                    <div class="detail">
-                        <div class="info">
-                            <h3> 【错峰特惠】三亚5日漫时光定制游（蜈支洲+游艇出海+无边际泳池+浪漫海洋餐厅+高空滑索) </h3>
-                            <div class="s-tag">
-                                <span> 海钓浮潜 </span>
-                                <span> 篝火狂欢 </span>
-                                <span> 适合所有人群 </span>
-                            </div>
-                        </div>
-                        <div class="extra">
-                            <div class="action">
-                                <span class="btn"> 查看详情 </span>
-                                <div class="promo-tag">
-                                </div>
-                            </div>
-                            <span class="price"> <b> ￥ </b> <strong> 2888 </strong> 起 </span>
-                        </div>
-                    </div> </a>
-                <a class="item clearfix" href="/sales/2159768.html" target="_blank">
-                    <div class="image">
-                        <img src="http://p3-q.mafengwo.net/s10/M00/A1/85/wKgBZ1oyLICAHdPWAACp3XXprSk52.jpeg?imageMogr2%2Fthumbnail%2F%21400x300r%2Fgravity%2FCenter%2Fcrop%2F%21400x300%2Fquality%2F100" height="150" width="200">
-                    </div>
-                    <div class="detail">
-                        <div class="info">
-                            <h3> 咨询立减现金【西沙长乐公主号】三亚-西沙群岛-三亚4天3晚圆梦爱国邮轮之旅（一价全含+中国的马尔代夫+五星管家服务） </h3>
-                            <div class="s-tag">
-                                <span> 纯玩无购物 </span>
-                                <span> 游玩时间充足 </span>
-                                <span> 原始岛屿沙滩 </span>
-                                <span> 邮轮自助餐 </span>
-                            </div>
-                            <p> <span class="t"> 班期:暑假07/24-10/29 </span> </p>
-                        </div>
-                        <div class="extra">
-                            <div class="action">
-                                <span class="btn"> 查看详情 </span>
-                                <div class="promo-tag">
-                                </div>
-                            </div>
-                            <span class="price"> <b> ￥ </b> <strong> 3980 </strong> 起 </span>
-                        </div>
-                    </div> </a>
-                <a class="item clearfix" href="/sales/2195851.html" target="_blank">
-                    <div class="image">
-                        <img src="http://b2-q.mafengwo.net/s10/M00/E9/DB/wKgBZ1l6wX6AA-m1AAmI5Sg5dLw58.jpeg?imageMogr2%2Fthumbnail%2F%21400x300r%2Fgravity%2FCenter%2Fcrop%2F%21400x300%2Fquality%2F100" height="150" width="200">
-                    </div>
-                    <div class="detail">
-                        <div class="info">
-                            <h3> 暑期预售·北京直飞三亚5天自由行(错峰游+酒店直采+自助早餐+专车接送机） </h3>
-                            <div class="s-tag">
-                                <span> 可花呗支付 </span>
-                                <span> 可蜜月布置 </span>
-                                <span> 可领优惠劵 </span>
-                            </div>
-                            <p> <span class="t"> 班期:暑假07/20-09/26 </span> </p>
-                        </div>
-                        <div class="extra">
-                            <div class="action">
-                                <span class="btn"> 查看详情 </span>
-                                <div class="promo-tag">
-                                </div>
-                            </div>
-                            <span class="price"> <b> ￥ </b> <strong> 2560 </strong> 起 </span>
-                        </div>
-                    </div> </a>
-                <a class="item clearfix" href="/sales/2184220.html" target="_blank">
-                    <div class="image">
-                        <img src="http://p4-q.mafengwo.net/s11/M00/7B/CA/wKgBEFpXJqOAdT2VAADI8lfetDY27.jpeg?imageMogr2%2Fthumbnail%2F%21400x300r%2Fgravity%2FCenter%2Fcrop%2F%21400x300%2Fquality%2F100" height="150" width="200">
-                    </div>
-                    <div class="detail">
-                        <div class="info">
-                            <h3> 玩海大咖·南京飞三亚5天4晚自由行（亲子/蜜月首选+多家高端酒店任选+含早含三亚专车接送机+赠送神秘手信大礼包） </h3>
-                            <div class="s-tag">
-                                <span> 最高省500现金 </span>
-                                <span> 暑期特价预售 </span>
-                            </div>
-                            <p> <span class="t"> 班期:暑假07/21-09/10 </span> </p>
-                        </div>
-                        <div class="extra">
-                            <div class="action">
-                                <span class="btn"> 查看详情 </span>
-                                <div class="promo-tag">
-                                </div>
-                            </div>
-                            <span class="price"> <b> ￥ </b> <strong> 1980 </strong> 起 </span>
-                        </div>
-                    </div> </a>
-                <a class="item clearfix" href="/sales/2354080.html" target="_blank">
-                    <div class="image">
-                        <img src="http://n3-q.mafengwo.net/s10/M00/F4/C0/wKgBZ1npbcOAHQa_AAHYauslt0A99.jpeg?imageMogr2%2Fthumbnail%2F%21400x300r%2Fgravity%2FCenter%2Fcrop%2F%21400x300%2Fquality%2F100" height="150" width="200">
-                    </div>
-                    <div class="detail">
-                        <div class="info">
-                            <h3> 暑价来袭·上海直飞三亚5天自由行(赠海鲜BBQ+浪漫旅拍+亚马逊乐园门票+专车接送机） </h3>
-                            <div class="s-tag">
-                                <span> 咨询领券 </span>
-                                <span> 天数可加 </span>
-                                <span> 酒店任选 </span>
-                            </div>
-                            <p> <span class="t"> 班期:暑假07/19-08/31 </span> </p>
-                        </div>
-                        <div class="extra">
-                            <div class="action">
-                                <span class="btn"> 查看详情 </span>
-                                <div class="promo-tag">
-                                </div>
-                            </div>
-                            <span class="price"> <b> ￥ </b> <strong> 2520 </strong> 起 </span>
-                        </div>
-                    </div> </a>
-
--->
-
-
             </div>
         </div>
 
@@ -359,6 +219,13 @@
 
             check(1);
         }
+    }
+
+    window.onload=function loadimg()
+    {
+
+
+
     }
 </script>
 </html>

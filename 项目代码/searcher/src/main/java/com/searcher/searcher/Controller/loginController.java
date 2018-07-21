@@ -1,6 +1,9 @@
 package com.searcher.searcher.Controller;
 
+import com.searcher.searcher.Domain.SysUser;
 import com.searcher.searcher.SearchEngine;
+import com.searcher.searcher.Service.UserService;
+import org.apache.xpath.operations.Mod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.data.repository.query.Param;
@@ -22,7 +25,8 @@ import java.util.List;
 @Controller
 @EnableAutoConfiguration
 public class loginController {
-
+    @Autowired
+    UserService userService;
 
     @RequestMapping("/login")
     String signin(Model model ,@Param("error") Integer error) {
@@ -59,9 +63,34 @@ public class loginController {
         return "home";
     }
     @RequestMapping("/signup")
-    String signup(Model model) {
+    String signup(Model model,@Param("error") Integer error) {
+        UserDetails user=new SysUser();
+        model.addAttribute("user",user);
+        if(error==null)
+            model.addAttribute("error",false);
+
+        else
+            model.addAttribute("error",true  );
 
         return "signup";
+    }
+
+    @RequestMapping("adduser")
+    String adduser(Model model,SysUser user)
+    {
+
+
+        if(userService.existUser(user.getUsername()))
+        {
+            return "redirect:/signup?error=1";
+
+        }
+
+        userService.addUser(user);
+
+        return "redirect:/login";
+
+
     }
 
     @RequestMapping("/logout")

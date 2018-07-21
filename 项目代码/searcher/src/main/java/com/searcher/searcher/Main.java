@@ -25,7 +25,7 @@ public class Main {
         }
         try {
 //            searchEngine.createIndex("clh-search-engine");
-            searchEngine.updateData("clh-search-engine", testData);
+       //     searchEngine.updateData("clh-search-engine", testData);
             searchEngine.updateData("clh-search-engine",spider);
 
             Vector<WebPageData> result = searchEngine.search("店铺",

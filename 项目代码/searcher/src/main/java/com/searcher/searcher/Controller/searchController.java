@@ -2,16 +2,21 @@ package com.searcher.searcher.Controller;
 
 import com.searcher.searcher.DataFormat.WebPageData;
 import com.searcher.searcher.SearchEngine;
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.data.repository.query.Param;
+import org.springframework.http.MediaType;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
@@ -25,6 +30,13 @@ public class searchController {
     @RequestMapping("/search")
     String searchs(@Param("keyword") String keyword, @Param("type") Long type,@Param("curr") Integer curr, Model model) throws IOException, InterruptedException {
         model.addAttribute("keyword",keyword);
+
+        byte[] a={1,2,3,4};
+
+
+
+
+        //验证用户信息
         UserDetails userDetails;
         if(SecurityContextHolder.getContext()
                 .getAuthentication()
@@ -52,6 +64,8 @@ public class searchController {
 
 
 
+
+
         List<String> gonglue=new ArrayList<>();
         for(int i=41;i<99;i++)
         {
@@ -67,16 +81,20 @@ public class searchController {
             model.addAttribute("count", jingdian.size());//结果总数
             model.addAttribute("curr",curr); //当前页码
             List<String> listofjingdian=new ArrayList<>(); //为了分页
+            int start,end;
+            start=curr*limit-limit;
             if(curr*10-1<jingdian.size())
             {
-                listofjingdian=jingdian.subList(curr*limit-limit,curr*limit);
+
+                end=curr*limit;
             }
             else
             {
-                listofjingdian=jingdian.subList(curr*limit-limit,jingdian.size());
+                end=jingdian.size();
 
             }
 
+            listofjingdian=jingdian.subList(start,end);
             model.addAttribute("listofjingdian",listofjingdian);//第（curr - 1）*limit 到 curr*limit-1条结果
             return "search_jingdian";
         }
@@ -90,23 +108,28 @@ public class searchController {
 
             System.out.println("curr*limit="+curr*limit+" xianlu.size="+xianlu.size());
 
-            if(curr*limit<=xianlu.size())
+            int start,end;
+            start=curr*limit-limit;
+            if(curr*10-1<xianlu.size())
             {
-                System.out.println("cur="+curr);
-                listofxianlu=xianlu.subList(curr*limit-limit,curr*limit);
+
+                end=curr*limit;
             }
             else
             {
-                System.out.println("end page");
-                listofxianlu=xianlu.subList(curr*limit-limit,xianlu.size());
+                end=xianlu.size();
 
             }
+
+
+            listofxianlu=xianlu.subList(start,end);
+
 
             model.addAttribute("listofxianlu",listofxianlu);//第（curr - 1）*limit 到 curr*limit-1条结果
             return "search_xianlu";
 
         }
-        else if(type==3)
+        else if(type==3) //攻略
         {
             model.addAttribute("count", gonglue.size());//结果总数
             model.addAttribute("curr",curr); //当前页码
@@ -124,7 +147,9 @@ public class searchController {
 
             model.addAttribute("listofgonglue",listofgonglue);//第（curr - 1）*limit 到 curr*limit-1条结果
             return "search_gonglue";
+
         }
+
 
         model.addAttribute("listofxianlu",xianlu.subList(0,xianlu.size()>4?4:xianlu.size()));
         return "search_all";
@@ -170,7 +195,7 @@ public class searchController {
                 WebPageData result=result_temp.firstElement();
                 model.addAttribute("result",result);
 
-
+                System.out.println("size= "+result.getBase64PictureCode().size());
 
             } catch (IOException e) {
                 e.printStackTrace();
@@ -209,7 +234,17 @@ public class searchController {
         return "recommend";
     }
 
+/*
+    @ResponseBody
+    @RequestMapping(value = "/photo", method = RequestMethod.GET, produces = MediaType.IMAGE_JPEG_VALUE)
+    public byte[] testphoto(@Param("id") String id) throws IOException, InterruptedException {
+
+        WebPageData xianlu= searchEngine.search(id,"clh-search-engine","title").firstElement();
 
 
+       return  Base64.getDecoder().decode(xianlu.getBase64PictureCode().get(0)) ;
+
+
+    }*/
 
 }

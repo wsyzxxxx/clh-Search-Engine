@@ -7,6 +7,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
 
 import com.searcher.searcher.DataFormat.WebPageData;
+import com.searcher.searcher.Spider.Util.Util;
 import org.apache.commons.logging.LogFactory;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -15,6 +16,7 @@ import org.jsoup.select.Elements;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.util.Base64;
 import java.util.HashSet;
 import java.util.Vector;
 import java.util.logging.Level;
@@ -76,6 +78,7 @@ public class spider_xianlu implements Spider{
             if(!next.contains("-")&&doc.getElementsByClass("intro-r").size()>0)
             {
 
+
                 Element useful=doc.getElementsByClass("intro-r").first();
                 WebPageData temp=new WebPageData();
                 temp.setTitle(useful.getElementsByTag("h1").first().text());
@@ -99,6 +102,26 @@ public class spider_xianlu implements Spider{
 
                 temp.setTags(tags);
                 temp.setUrl(url);
+
+
+                Elements imgs_remote=doc.getElementsByAttributeValue("data-type","salesPhoto").first().getElementsByTag("li");
+                System.out.println("****"+imgs_remote.size());
+
+                Vector<String> imgs=new Vector<>();
+                for(Element img_remote:imgs_remote)
+                {
+                    String img=img_remote.getElementsByTag("img").first().attr("src");
+                    imgs.add(Util.getImage(img));
+
+                    System.out.println("img:"+img);
+                }
+
+                temp.setBase64PictureCode(imgs);
+
+
+
+
+
                 data.add(temp);
 
             }

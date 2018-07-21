@@ -1,8 +1,9 @@
 package com.searcher.searcher;
-
 import com.searcher.searcher.DataFormat.WebPageData;
 import com.searcher.searcher.Spider.Spider;
 import com.alibaba.fastjson.JSON;
+import com.searcher.searcher.DataFormat.WebPageData;
+import com.searcher.searcher.Spider.Spider;
 import org.apache.http.HttpHost;
 import org.elasticsearch.action.admin.indices.create.CreateIndexRequest;
 import org.elasticsearch.action.admin.indices.delete.DeleteIndexRequest;
@@ -47,17 +48,23 @@ public class SearchEngine{
     }
 
     public Vector<WebPageData> search(String keyword, String indexName, String... fieldName) throws IOException, InterruptedException {
-        // TODO: implement
+        return search(keyword, 10, indexName, fieldName);
+    }
+
+    public Vector<WebPageData> search(String keyword, int returnSize, String indexName, String... fieldName) throws IOException, InterruptedException {
         GetRequest getRequest = new GetRequest();
 
         SearchRequest searchRequest = new SearchRequest(indexName);
         SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
         searchSourceBuilder.query(QueryBuilders.multiMatchQuery(keyword, fieldName));
+        searchSourceBuilder.size(returnSize);
         searchRequest.source(searchSourceBuilder);
+
 
         SearchResponse searchResponse = client.search(searchRequest);
 
         SearchHits resultSet = searchResponse.getHits();
+        System.out.println("resultS et size = " + resultSet.totalHits);
 
         Vector<WebPageData> result = new Vector<>();
         for(SearchHit i : resultSet){
@@ -67,9 +74,12 @@ public class SearchEngine{
         return result;
     }
 
-    public void updateData(String indexName, Spider spider) throws IOException {
-        // TODO: implement
-        Vector<WebPageData> updateContext = spider.getData();
+    public void updateData(String indexName, Spider... spider) throws IOException {
+        Vector<WebPageData> updateContext = new Vector<>();
+        for(Spider i : spider){
+            Vector<WebPageData> tempData = i.getData();
+            updateContext.addAll(tempData);
+        }
 
         updateData(indexName, updateContext);
 
@@ -82,9 +92,7 @@ public class SearchEngine{
         CreateIndexRequest rebuild = new CreateIndexRequest(indexName);
         indicesClient.create(rebuild);
 
-
         for(WebPageData i : data){
-            System.out.println(i.getTitle()+"***************************");
             String jsonString = JSON.toJSONString(i);
             IndexRequest indexRequest = new IndexRequest(indexName, "doc");
             indexRequest.source(jsonString, XContentType.JSON);
@@ -92,6 +100,5 @@ public class SearchEngine{
         }
         RefreshRequest refresh = new RefreshRequest(indexName);
         client.indices().refresh(refresh);
-        System.out.println(data.size()+"##################");
     }
 }

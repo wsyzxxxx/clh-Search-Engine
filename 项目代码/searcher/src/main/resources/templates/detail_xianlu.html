@@ -74,6 +74,10 @@
 </div>
 <link href="http://css.mafengwo.net/css/cv/guide+css+preview:css+local+list_v3:guide+css+audioplayer^ZlI^1525428647.css" rel="stylesheet" type="text/css">
 
+
+
+
+
 <br>
     <div class="container">
         <div class="wrapper">
@@ -81,25 +85,16 @@
             <div class="sales-intro new-intro clearfix">
                 <div class="intro-l">
                     <div class="sales-photo">
-                        <ul data-type="salesPhoto" data-stat-area="2_1" style="width: 7536px;">
-                            <li> <img src="http://n1-q.mafengwo.net/s11/M00/8A/86/wKgBEFsx_6qAPk68AA8Dpuok_G8359.gif?imageMogr2%2Fthumbnail%2F%21440x260r%2Fgravity%2FCenter%2Fcrop%2F%21440x260%2Fquality%2F100"> </li>
-                              <li> <img src="http://p1-q.mafengwo.net/s11/M00/8E/68/wKgBEFsyAcOAVSYUAAGLB4ODl0063.jpeg?imageMogr2%2Fthumbnail%2F%21440x260r%2Fgravity%2FCenter%2Fcrop%2F%21440x260%2Fquality%2F100"> </li>
-                              <li> <img src="http://b1-q.mafengwo.net/s9/M00/A1/9A/wKgBs1g3qYmAaccPACD_ti2fBpQ65.jpeg?imageMogr2%2Fthumbnail%2F%21440x260r%2Fgravity%2FCenter%2Fcrop%2F%21440x260%2Fquality%2F100"> </li>
-                              <li> <img src="http://n4-q.mafengwo.net/s10/M00/44/9E/wKgBZ1mBcxmAKY-PAEpgA33k0Yg10.jpeg?imageMogr2%2Fthumbnail%2F%21440x260r%2Fgravity%2FCenter%2Fcrop%2F%21440x260%2Fquality%2F100"> </li>
-                              <li> <img src="http://b4-q.mafengwo.net/s11/M00/15/69/wKgBEFtGzxmABgnuABA5qVHAfQU24.jpeg?imageMogr2%2Fthumbnail%2F%21440x260r%2Fgravity%2FCenter%2Fcrop%2F%21440x260%2Fquality%2F100"> </li>
-                              <li> <img src="http://b4-q.mafengwo.net/s11/M00/17/A5/wKgBEFtG0FKANYpjAApYQSsvlWI18.jpeg?imageMogr2%2Fthumbnail%2F%21440x260r%2Fgravity%2FCenter%2Fcrop%2F%21440x260%2Fquality%2F100"> </li>
-
-                        </ul>
-                         <span class="btn-prev"> <i> </i> </span>
-                         <span class="btn-next"> <i> </i> </span>
-
+                        <ul data-type="salesPhoto" data-stat-area="2_1" style="width: 7536px;" th:each="img:${result.getBase64PictureCode()}">
+                          <li><img th:src="'data:image/png;base64,'+${img}"></li>
+                      </ul>
+                        <span class="btn-prev"> <i> </i> </span>
+                        <span class="btn-next"> <i> </i> </span>
                         <div class="dot">
-                            <span class="on"> </span>
+
+                            <th:block th:each="i:${result.getBase64PictureCode()}">
                             <span> </span>
-                            <span> </span>
-                            <span> </span>
-                            <span> </span>
-                            <span> </span>
+                            </th:block>
 
                         </div>
 
@@ -113,7 +108,7 @@
                     <div data-cal-wrap="1" style="display: none;" data-stat-display="1">
                     </div>
                     <div class="l-ft clearfix" >
-                        <a class="btn-collect " data-stat-area="7_5"  id="sc1" href="#" onclick="shoucang()"> <i > </i> 收藏 <span class="num" id="sc2">1 </span> </a>
+                        <a class="btn-collect" data-stat-area="7_5"  id="sc1" href="#" onclick="shoucang()"> <i > </i> 收藏 <span class="num" id="sc2">1 </span> </a>
 
                     </div>
                 </div>
@@ -371,22 +366,46 @@
 <br>
 <br>
 <br>
+<script>
+    //<![CDATA[
+
+    M.closure(function(require){
+        var SalesDetail = require('/js/sales/detail');
+        var detail = new SalesDetail({
+            sales:{
+                'id': '',
+                'name': '',
+                'img' : '',
+                'scope' : 'sales',
+                'type' : '28'
+            },
+            allow_show_review: true,
+            gift_code: '',
+            stock_version: 1
+        });
+        detail.init();
+        window.detailPage = detail;
+    });
+
+    //]]>
+</script>
 
 <script>
     function shoucang() {
         var sc1=document.getElementById("sc1");
         var cl=sc1.className;
+
         var sc2=document.getElementById("sc2");
         var count=parseInt(sc2.innerText);
         if(cl=='btn-collect')
         {
             sc2.innerText=count+1;
-            sc1.className='btn-collect on';
+            sc1.setClasses('btn-collect on');
         }
         else
         {
             sc2.innerText=count-1;
-            sc1.className='btn-collect';
+            sc1.setClasses('btn-collect');
         }
 
     }

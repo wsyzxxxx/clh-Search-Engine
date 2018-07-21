@@ -8,6 +8,7 @@ public class WebPageData {
     private String price;
     private int childPrice;
     private Vector<String> tags;
+    private Vector<String> base64PictureCode;
 
     public String getTitle() {
         return title;
@@ -16,6 +17,7 @@ public class WebPageData {
     public void setTitle(String title) {
         this.title = title;
     }
+//123123
 
     public String getUrl() {
         return url;
@@ -25,13 +27,15 @@ public class WebPageData {
         this.url = url;
     }
 
-    public String getPrice() {
+
+    public String  getPrice() {
         return price;
     }
 
     public void setPrice(String price) {
         this.price = price;
     }
+
 
     public Vector<String> getTags() {
         return tags;
@@ -41,12 +45,23 @@ public class WebPageData {
         this.tags = tags;
     }
 
+
     public int getChildPrice() {
         return childPrice;
     }
 
     public void setChildPrice(int childPrice) {
         this.childPrice = childPrice;
+    }
+
+
+
+    public Vector<String> getBase64PictureCode() {
+        return base64PictureCode;
+    }
+
+    public void setBase64PictureCode(Vector<String> base64PictureCode) {
+        this.base64PictureCode = base64PictureCode;
     }
 
 }

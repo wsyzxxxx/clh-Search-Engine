@@ -17,8 +17,8 @@ public class SysUser implements UserDetails {
     @Id
     @GeneratedValue
     private Long id;
-    private String username;
-    private String password;
+    public String username;
+    public String password;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -37,7 +37,7 @@ public class SysUser implements UserDetails {
     public String getUsername() {
         return username;
     }
-
+//awfewf
     @Override
     public boolean isAccountNonExpired() {
         return true;
@@ -56,5 +56,14 @@ public class SysUser implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    public void setUsername(String name)
+    {
+        username=name;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }
