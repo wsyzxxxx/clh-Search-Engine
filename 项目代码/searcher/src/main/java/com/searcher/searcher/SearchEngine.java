@@ -1,4 +1,5 @@
 package com.searcher.searcher;
+import com.searcher.searcher.DataFormat.GongLue_Data;
 import com.searcher.searcher.DataFormat.WebPageData;
 import com.searcher.searcher.Spider.Spider;
 import com.alibaba.fastjson.JSON;
@@ -21,6 +22,7 @@ import org.elasticsearch.search.SearchHits;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 
 import java.io.IOException;
+import java.util.Scanner;
 import java.util.Vector;
 
 public class SearchEngine{
@@ -47,11 +49,11 @@ public class SearchEngine{
         return response.getStatusLine().getStatusCode() == 200;
     }
 
-    public Vector<WebPageData> search(String keyword, String indexName, String... fieldName) throws IOException, InterruptedException {
-        return search(keyword, 10, indexName, fieldName);
+    public Vector<WebPageData> search(String keyword, String indexName, Class <? extends WebPageData> cl,String... fieldName) throws IOException, InterruptedException {
+        return search(keyword, 100, indexName,cl, fieldName);
     }
 
-    public Vector<WebPageData> search(String keyword, int returnSize, String indexName, String... fieldName) throws IOException, InterruptedException {
+    public Vector<WebPageData> search(String keyword, int returnSize, String indexName, Class <? extends WebPageData> cl,String... fieldName) throws IOException, InterruptedException {
         GetRequest getRequest = new GetRequest();
 
         SearchRequest searchRequest = new SearchRequest(indexName);
@@ -66,9 +68,10 @@ public class SearchEngine{
         SearchHits resultSet = searchResponse.getHits();
         System.out.println("resultS et size = " + resultSet.totalHits);
 
+
         Vector<WebPageData> result = new Vector<>();
         for(SearchHit i : resultSet){
-            WebPageData webPageData =  JSON.parseObject(i.getSourceAsString(), WebPageData.class);
+            WebPageData webPageData =  JSON.parseObject(i.getSourceAsString(), cl);
             result.add(webPageData);
         }
         return result;
@@ -91,9 +94,11 @@ public class SearchEngine{
         indicesClient.delete(clearAllData);
         CreateIndexRequest rebuild = new CreateIndexRequest(indexName);
         indicesClient.create(rebuild);
+        Class cl=data.get(0).getClass();
 
-        for(WebPageData i : data){
-            String jsonString = JSON.toJSONString(i);
+        for(WebPageData i:data){
+
+            String jsonString = JSON.toJSONString(cl.cast(i));
             IndexRequest indexRequest = new IndexRequest(indexName, "doc");
             indexRequest.source(jsonString, XContentType.JSON);
             IndexResponse indexResponse = client.index(indexRequest);

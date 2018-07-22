@@ -1,8 +1,10 @@
 package com.searcher.searcher.Controller;
 
+import com.searcher.searcher.DataFormat.GongLue_Data;
 import com.searcher.searcher.DataFormat.WebPageData;
 import com.searcher.searcher.SearchEngine;
 import org.apache.commons.io.IOUtils;
+import org.elasticsearch.common.recycler.Recycler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.data.repository.query.Param;
@@ -59,21 +61,22 @@ public class searchController {
 
         int limit=9;
         List<String> jingdian=new ArrayList<>();//景点列表
-        Vector<WebPageData> xianlu= searchEngine.search(keyword,"clh-search-engine","title","tags");
-        xianlu= searchEngine.search(keyword,"clh-search-engine","title","tags");
+        Vector<WebPageData> xianlu,gonglue;
+        gonglue= searchEngine.search(keyword,"gonglue",GongLue_Data.class,"title");
+
+        xianlu= searchEngine.search(keyword,"clh-search-engine",WebPageData.class,"title","tags");
 
 
 
 
 
-        List<String> gonglue=new ArrayList<>();
+
         for(int i=41;i<99;i++)
         {
             jingdian.add(String.valueOf(i));
-            gonglue.add(String.valueOf(i));
         }
 
-        System.out.println("size= "+xianlu.size());
+
 
         if(type==4)//搜索景点
         {
@@ -85,13 +88,11 @@ public class searchController {
             start=curr*limit-limit;
             if(curr*10-1<jingdian.size())
             {
-
                 end=curr*limit;
             }
             else
             {
                 end=jingdian.size();
-
             }
 
             listofjingdian=jingdian.subList(start,end);
@@ -103,22 +104,18 @@ public class searchController {
 
             model.addAttribute("count", xianlu.size());//结果总数
             model.addAttribute("curr",curr); //当前页码
-
             List<WebPageData> listofxianlu=new ArrayList<>(); //为了分页
-
             System.out.println("curr*limit="+curr*limit+" xianlu.size="+xianlu.size());
 
             int start,end;
             start=curr*limit-limit;
             if(curr*10-1<xianlu.size())
             {
-
                 end=curr*limit;
             }
             else
             {
                 end=xianlu.size();
-
             }
 
 
@@ -133,17 +130,25 @@ public class searchController {
         {
             model.addAttribute("count", gonglue.size());//结果总数
             model.addAttribute("curr",curr); //当前页码
-            List<String> listofgonglue=new ArrayList<>(); //为了分页
+            List<GongLue_Data> listofgonglue=new ArrayList<>(); //为了分页
+            int start,end;
+            start=curr*limit-limit;
             if(curr*10-1<gonglue.size())
             {
-                listofgonglue=gonglue.subList(curr*limit-limit,curr*limit);
+                end=curr*limit;
             }
             else
             {
-                listofgonglue=jingdian.subList(curr*limit-limit,gonglue.size());
+                end=gonglue.size();
+            }
+
+            for (int i=start;i<end;i++)
+            {
+                listofgonglue.add((GongLue_Data) gonglue.get(i));
+               System.out.println (((GongLue_Data) gonglue.get(i)).getDescription());
+                System.out.println (((GongLue_Data) gonglue.get(i)).getPosition());
 
             }
-            System.out.println(listofgonglue);
 
             model.addAttribute("listofgonglue",listofgonglue);//第（curr - 1）*limit 到 curr*limit-1条结果
             return "search_gonglue";
@@ -151,9 +156,18 @@ public class searchController {
         }
 
 
+        model.addAttribute("count",gonglue.size()+xianlu.size());
+        model.addAttribute("listofgonglue",gonglue.subList(0,gonglue.size()>4?4:gonglue.size()));
         model.addAttribute("listofxianlu",xianlu.subList(0,xianlu.size()>4?4:xianlu.size()));
         return "search_all";
     }
+
+
+
+
+
+
+
 
     @RequestMapping("/detail")
     String detail(@Param("id") String id, @Param("type") Integer type, Model model) {
@@ -185,13 +199,25 @@ public class searchController {
         }
         if(type==3)
         {
+            try {
+                Vector<WebPageData> results=searchEngine.search(id,"gonglue",GongLue_Data.class,"title");
+                model.addAttribute("gonglue",(GongLue_Data)results.get(0));
+
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+
             return "detail_gonglue";
         }
         else if (type==2)
         {
 
             try {
-                Vector<WebPageData> result_temp=searchEngine.search(id,"clh-search-engine","title");
+                Vector<WebPageData> result_temp=searchEngine.search(id,"clh-search-engine",WebPageData.class,"title");
                 WebPageData result=result_temp.firstElement();
                 model.addAttribute("result",result);
 

@@ -2,7 +2,7 @@
 <html  xmlns:th="http://www.thymeleaf.org">
 <head>
  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
- <title th:text="${keyword}+'-景点搜索'">
+ <title th:text="${keyword}+'-攻略搜索'">
  </title>
  <link rel="icon" type="image/png" href="images/icons/favicon.ico"/>
 
@@ -88,6 +88,24 @@
     <div class="att-list">
      <ul>
       <!--每个需要一个内容id 图片链接 标题 简介 -->
+      <div th:each="gonglue:${listofgonglue}">
+      <li>
+       <div class="clearfix">
+        <div class="flt1">
+         <a th:href="@{/detail(id=${gonglue.getTitle()},type=3)}" target="_blank" class="_j_search_link"> <img  th:src="'data:image/png;base64,'+${gonglue.getBase64PictureCode().get(0)}"style="width:150px;height:90px;"> </a>
+        </div>
+        <div class="ct-text ">
+         <h3> <a th:href="@{/detail(id=${gonglue.getTitle()},type=3)}" target="_blank" class="_j_search_link" th:text="${gonglue.getTitle()}"> </a> </h3>
+         <p class="seg-desc" th:text="${gonglue.getDescription()}"></p>
+         <ul class="seg-info-list clearfix">
+          <li> <a href="#" target="_blank" class="_j_search_link" th:text="${gonglue.getPosition()}"> </a> </li>
+          <li th:text="${gonglue.getDate()}"></li>
+         </ul>
+        </div>
+       </div> </li>
+       <br>
+      </div>
+<!--
       <li>
        <div class="clearfix">
         <div class="flt1">
@@ -222,7 +240,7 @@
           <li> 2018-07-11 14:03:09 </li>
          </ul>
         </div>
-       </div> </li>
+       </div> </li>-->
 
 
    </ul>
@@ -249,7 +267,8 @@
  <!-- 分页-->
  <br>
  <div id="page"></div>
- <script>
+   <script th:inline="javascript" type="text/javascript">
+
      layui.use('laypage', function(){
          var laypage = layui.laypage;
          var keyword=[[${keyword}]];

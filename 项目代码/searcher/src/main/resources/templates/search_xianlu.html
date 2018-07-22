@@ -157,7 +157,8 @@
             <!-- 分页-->
             <br>
             <div id="page"></div>
-            <script type="text/javascript" charset="UTF-8">
+            <script th:inline="javascript" type="text/javascript">
+
                 var keyword=[[${keyword}]];
                 layui.use('laypage', function(){
                     var laypage = layui.laypage;

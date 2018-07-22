@@ -312,10 +312,10 @@
    <!-- 分页-->
    <br>
    <div id="page"></div>
-   <script>
+   <script th:inline="javascript" type="text/javascript">
        layui.use('laypage', function(){
            var laypage = layui.laypage;
-          var keyword=[[${count}]];
+          var keyword=[[${keyword}]];
            //执行一个laypage实例
            laypage.render({
                elem: 'page'

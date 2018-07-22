@@ -1,14 +1,11 @@
-package com.searcher.searcher.Spider.mafengwo;
+package com.searcher.searcher.Spider.youxiake;
 
-
+import com.searcher.searcher.DataFormat.WebPageData;
 import com.gargoylesoftware.htmlunit.*;
 
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
 
-import com.searcher.searcher.DataFormat.WebPageData;
-import com.searcher.searcher.Spider.Util.Util;
-import org.apache.commons.logging.LogFactory;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -16,15 +13,14 @@ import org.jsoup.select.Elements;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.util.Base64;
 import java.util.HashSet;
 import java.util.Vector;
 import java.util.logging.Level;
 import com.searcher.searcher.Spider.Spider;
 
-public class spider_xianlu implements Spider{
+public class spider implements Spider{
 
-
+    private Vector<WebPageData> data;
     public static void main(String[] args) throws FailingHttpStatusCodeException, MalformedURLException, IOException {
 
 
@@ -32,14 +28,27 @@ public class spider_xianlu implements Spider{
 
 
     @Override
-    public Vector<WebPageData> getData() {
-      Vector<WebPageData> data=new Vector<>();
+    public Vector<WebPageData> getData() throws IOException {
+        // 屏蔽HtmlUnit等系统 log
+        //LogFactory.getFactory().setAttribute("org.apache.commons.logging.Log","org.apache.commons.logging.impl.NoOpLog");
+
+        System.setProperty("org.apache.commons.logging.Log", "org.apache.commons.logging.impl.NoOpLog");
+        java.util.logging.Logger.getLogger("com.gargoylesoftware").setLevel(Level.OFF);
+        java.util.logging.Logger.getLogger("org.apache.http.client").setLevel(Level.OFF);
 
         String baseurl = "http://www.mafengwo.cn/sales/";
-       HashSet<String> visited=new HashSet<String>();
+        // HtmlUnit 模拟浏览器
+        WebClient webClient = new WebClient(BrowserVersion.CHROME);
+        webClient.getOptions().setJavaScriptEnabled(true);              // 启用JS解释器，默认为true
+        webClient.getOptions().setCssEnabled(false);                    // 禁用css支持
+        webClient.getOptions().setThrowExceptionOnScriptError(false);   // js运行错误时，是否抛出异常
+        webClient.getOptions().setThrowExceptionOnFailingStatusCode(false);
+        webClient.getOptions().setTimeout(10 * 1000);                   // 设置连接超时时间
+        HashSet<String> visited=new HashSet<String>();
         HashSet<String> tovisit=new HashSet<String>();
+        webClient.waitForBackgroundJavaScript(50 * 1000);               // 等待js后台执行30秒
         String next="";
-        String url=null;
+        String url="http://www.mafengwo.cn/sales/";
         int step=0;
         while(step<100) {
             step++;
@@ -50,21 +59,19 @@ public class spider_xianlu implements Spider{
             }
             System.out.println("url="+url);
 
-           // HtmlPage page = webClient.getPage(url);
+          //  HtmlPage page = webClient.getPage(url);
 
-            //String pageAsXml = page.asXml();
+          //  String pageAsXml = page.asXml();
 
             // Jsoup解析处理
+
+            Document doc=Jsoup.connect(url).get();
             //Document doc = Jsoup.parse(pageAsXml);
-            Document doc= null;
-            try {
-                doc = Jsoup.connect(url).get();
 
 
             //获取信息
             if(!next.contains("-")&&doc.getElementsByClass("intro-r").size()>0)
             {
-
 
                 Element useful=doc.getElementsByClass("intro-r").first();
                 WebPageData temp=new WebPageData();
@@ -76,40 +83,13 @@ public class spider_xianlu implements Spider{
 
 
                 Vector<String> tags=new Vector<String>();
-                boolean first=true;
                 for(Element tag:tagsele)
                 {
-
-                    if(first) {
-                        first=false;
-                        continue;
-                    }
                     tags.add(tag.text());
+                    System.out.println("**tag="+tag.text());
                 }
-
-                temp.setTags(tags);
                 temp.setUrl(url);
 
-
-                Elements imgs_remote=doc.getElementsByAttributeValue("data-type","salesPhoto").first().getElementsByTag("li");
-                System.out.println("****"+imgs_remote.size());
-
-                Vector<String> imgs=new Vector<>();
-                for(Element img_remote:imgs_remote)
-                {
-                    String img=img_remote.getElementsByTag("img").first().attr("src");
-                    imgs.add(Util.getImage(img));
-
-                    System.out.println("img:"+img);
-                }
-
-                temp.setBase64PictureCode(imgs);
-
-
-
-
-
-                data.add(temp);
 
             }
             else
@@ -147,10 +127,6 @@ public class spider_xianlu implements Spider{
                     }
 
                 }
-            }
-            } catch (IOException e) {
-                System.out.println("404 "+url);
-
             }
 
             if (!tovisit.isEmpty()) {

@@ -14,8 +14,8 @@ int 评论数
 <html  xmlns:th="http://www.thymeleaf.org">
 <head>
  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
- <title>
-  宁波版“西湖”——月湖公园游览攻略
+ <title th:text="${gonglue.getTitle()}">
+
  </title>
  <link rel="icon" type="image/png" href="images/icons/favicon.ico"/>
 
@@ -167,245 +167,17 @@ int 评论数
  <div class="local-con clearfix">
   <div class="sideL">
    <div class="l-topic">
-    <h1> 宁波版“西湖”——月湖公园游览攻略 </h1>
+    <h1 th:text="${gonglue.getTitle()}">  </h1>
 
    </div>
    <div class="_j_content">
-    <div class="f-block">
-     <div class="p-section">
-      月湖之于宁波人或许正如西湖之于杭州人。月湖公园集大气和精致于一身，就像宁波的盆景，满是绿色，满是生机。各种老建筑和博物馆夹杂其间，颇有趣味。
-     </div>
-    </div>
-    <div class="f-block">
-     <img class="_j_lazyload" style="height: 382px; width: 680px; background: #FCF2DC; display: inline;" src="http://b3-q.mafengwo.net/s9/M00/7E/B2/wKgBs1byi2eADKOlAADLJ65nphU04.jpeg?imageView2%2F2%2Fw%2F680%2Fq%2F90" data-src="http://b3-q.mafengwo.net/s9/M00/7E/B2/wKgBs1byi2eADKOlAADLJ65nphU04.jpeg?imageView2%2F2%2Fw%2F680%2Fq%2F90" data-rt-src="http://b3-q.mafengwo.net/s9/M00/7E/B2/wKgBs1byi2eADKOlAADLJ65nphU04.jpeg?imageView2%2F2%2Fw%2F1360%2Fq%2F90">
-     <span class="img-an"> 图：月湖游览线路图。 </span>
-    </div>
-    <div class="f-block" id="_j_paragraph_1">
-     <h2> 关于月湖 </h2>
-    </div>
-    <div class="f-block" id="_j_paragraph_2">
-     <h3> 南园&amp;北园 </h3>
-    </div>
-    <div class="f-block">
-     <div class="p-section">
-      月湖分南北园，南园更像是一个现代的公园，树木和花朵交相辉映；北园别有一番风光在眼前，一副江南园林画面跃然而出，湖面很像扬州的瘦西湖，园林有很像苏州园林，很适合几个知己闲庭漫步。
-     </div>
-    </div>
-    <div class="f-block">
-     <img class="_j_lazyload" style="height: 453px; width: 680px; background: #FCF2DC; display: inline;" src="http://n3-q.mafengwo.net/s9/M00/8B/5D/wKgBs1bynLeAYc4wAAh51n-Rluo24.jpeg?imageView2%2F2%2Fw%2F680%2Fq%2F90" data-src="http://n3-q.mafengwo.net/s9/M00/8B/5D/wKgBs1bynLeAYc4wAAh51n-Rluo24.jpeg?imageView2%2F2%2Fw%2F680%2Fq%2F90" data-rt-src="http://n3-q.mafengwo.net/s9/M00/8B/5D/wKgBs1bynLeAYc4wAAh51n-Rluo24.jpeg?imageView2%2F2%2Fw%2F1360%2Fq%2F90">
-     <span class="img-an"> 图：月湖公园。 </span>
-    </div>
-    <div class="f-block" id="_j_paragraph_3">
-     <h3> 历史沿革 </h3>
-    </div>
-    <div class="f-block">
-     <div class="p-section">
-      月湖公园开凿于唐贞观年间（636年），宋元佑年间建成月湖十洲。南宋绍兴年间，广筑亭台楼阁，遍植四时花树，形成月湖上十洲胜景。这十洲分别是：湖东的竹屿、月岛和菊花洲，湖中的花屿、竹洲、柳汀和芳草洲，湖西的烟屿、雪汀和芙蓉洲。此外还有三堤七桥交相辉映。
-      <br>
-     </div>
-    </div>
-    <div class="f-block">
-     <img class="_j_lazyload" style="height: 453px; width: 680px; background: #FCF2DC; display: inline;" src="http://n3-q.mafengwo.net/s9/M00/78/2F/wKgBs1byf1OAK2PiAAqauCyVU9A19.jpeg?imageView2%2F2%2Fw%2F680%2Fq%2F90" data-src="http://n3-q.mafengwo.net/s9/M00/78/2F/wKgBs1byf1OAK2PiAAqauCyVU9A19.jpeg?imageView2%2F2%2Fw%2F680%2Fq%2F90" data-rt-src="http://n3-q.mafengwo.net/s9/M00/78/2F/wKgBs1byf1OAK2PiAAqauCyVU9A19.jpeg?imageView2%2F2%2Fw%2F1360%2Fq%2F90">
-     <span class="img-an"> 图：月湖的小桥流水。 </span>
-    </div>
-    <div class="f-block">
-     <div class="p-section">
-      宋元以来，月湖是浙东学术中心，是文人墨客憩息荟萃之地。唐代大诗人贺知章、北宋名臣王安石、南宋宰相史浩、宋代著名学者杨简、明末清初大史学家万斯同，这些风流人物，或隐居，或讲学，或为官，或著书，都在月湖留下不可磨灭的印痕。月湖，形成于唐太宗贞观十年。
-     </div>
-    </div>
-    <div class="f-block">
-     <img class="_j_lazyload" style="height: 453px; width: 680px; background: #FCF2DC; display: inline;" src="http://b1-q.mafengwo.net/s9/M00/77/F6/wKgBs1byfw2AGMxeAA4tqai4-K048.jpeg?imageView2%2F2%2Fw%2F680%2Fq%2F90" data-src="http://b1-q.mafengwo.net/s9/M00/77/F6/wKgBs1byfw2AGMxeAA4tqai4-K048.jpeg?imageView2%2F2%2Fw%2F680%2Fq%2F90" data-rt-src="http://b1-q.mafengwo.net/s9/M00/77/F6/wKgBs1byfw2AGMxeAA4tqai4-K048.jpeg?imageView2%2F2%2Fw%2F1360%2Fq%2F90">
-     <span class="img-an"> 图：月湖的小桥流水。 </span>
-    </div>
-    <div class="f-block">
-     <div class="p-section">
-      宽处似满月，狭处似眉月，故称月湖。在北宋初期，月湖中心湖心岛上已建有“寿圣院”。北宋元丰二年，“唐宋八大家”之一的曾巩上任明州太守时，写过《游寿圣院》：“一峰潇洒背城阴，碧瓦新堂布地金。落花禅衣松砌冷，日临经帙纸窗深。幽栖鸟得林中乐，燕坐人存世外心。应似白莲香火社，不妨篮举客追寻。”
-     </div>
-    </div>
-    <div class="f-block" id="_j_paragraph_4">
-     <h3> 月湖游览线路 </h3>
-    </div>
-    <div class="f-block">
-     <div class="p-section">
-      路线：南园—北园，一路向上而行。
-      <br> 所有的景点（除现代游乐设施之外）都是免费的，一些博物馆美术馆进去只需登记一下即可。
-     </div>
-    </div>
-    <div class="f-block">
-     <img class="_j_lazyload" style="height:453px;width:680px;background:#FCF2DC" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" data-src="http://n2-q.mafengwo.net/s9/M00/D0/64/wKgBs1bzbeaAWMcHAAcypRVmfiA54.jpeg?imageView2%2F2%2Fw%2F680%2Fq%2F90" data-rt-src="http://n2-q.mafengwo.net/s9/M00/D0/64/wKgBs1bzbeaAWMcHAAcypRVmfiA54.jpeg?imageView2%2F2%2Fw%2F1360%2Fq%2F90">
-     <span class="img-an"> 图：茶文化博物馆。 </span>
-    </div>
-    <div class="f-block" id="_j_paragraph_5">
-     <h2> 月湖看点推荐 </h2>
-    </div>
-    <div class="f-block" id="_j_paragraph_6">
-     <h3> 看点1：小桥流水 </h3>
-    </div>
-    <div class="f-block">
-     <div class="p-section">
-      一场小桥流水的邂逅，初到月湖，目光的洗礼。
-     </div>
-    </div>
-    <div class="f-block" id="_j_paragraph_7">
-     <h3> 看点2：茶文化博物馆 </h3>
-    </div>
-    <div class="f-block">
-     <img class="_j_lazyload" style="height:453px;width:680px;background:#FCF2DC" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" data-src="http://n3-q.mafengwo.net/s9/M00/7D/D3/wKgBs1byidWAHehlAAbk4b1NJ0822.jpeg?imageView2%2F2%2Fw%2F680%2Fq%2F90" data-rt-src="http://n3-q.mafengwo.net/s9/M00/7D/D3/wKgBs1byidWAHehlAAbk4b1NJ0822.jpeg?imageView2%2F2%2Fw%2F1360%2Fq%2F90">
-     <span class="img-an"> 图：茶文化博物馆。 </span>
-    </div>
-    <div class="f-block">
-     <div class="p-section">
-      在这儿，坐落着一座茶文化博物馆，走进这里，体会悠久丰富的茶文化。
-     </div>
-    </div>
-    <div class="f-block">
-     <img class="_j_lazyload" style="height:381px;width:680px;background:#FCF2DC" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" data-src="http://p1-q.mafengwo.net/s9/M00/D0/8A/wKgBs1bzbjyAaO6cAAqPE9mVBG427.jpeg?imageView2%2F2%2Fw%2F680%2Fq%2F90" data-rt-src="http://p1-q.mafengwo.net/s9/M00/D0/8A/wKgBs1bzbjyAaO6cAAqPE9mVBG427.jpeg?imageView2%2F2%2Fw%2F1360%2Fq%2F90">
-     <span class="img-an"> 图：茶文化博物馆。 </span>
-    </div>
-    <div class="f-block" id="_j_paragraph_8">
-     <h3> 看点3：佛教居士林 </h3>
-    </div>
-    <div class="f-block">
-     <img class="_j_lazyload" style="height:453px;width:680px;background:#FCF2DC" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" data-src="http://p4-q.mafengwo.net/s9/M00/82/96/wKgBs1bykUKAYnCaAAiJuX1REQc02.jpeg?imageView2%2F2%2Fw%2F680%2Fq%2F90" data-rt-src="http://p4-q.mafengwo.net/s9/M00/82/96/wKgBs1bykUKAYnCaAAiJuX1REQc02.jpeg?imageView2%2F2%2Fw%2F1360%2Fq%2F90">
-     <span class="img-an"> </span>
-    </div>
-    <div class="f-block">
-     <div class="p-section">
-      佛教居士林，坐落在月湖文化景区的柳汀洲上，右毗贺秘监祠，后临月湖。风景幽雅，瑞气霭林。林内诸座殿宇蔚为巍峨，雕梁画栋，古朴典雅，重楼歇顶，庄严清净。碧波荡漾的“放生池”及飞檐玲珑的“水云亭”，构成人喜人爱的怡人景观。
-     </div>
-    </div>
-    <div class="f-block">
-     <img class="_j_lazyload" style="height:453px;width:680px;background:#FCF2DC" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" data-src="http://n3-q.mafengwo.net/s9/M00/82/C2/wKgBs1bykY2AJ411AAgQfyb-9PA89.jpeg?imageView2%2F2%2Fw%2F680%2Fq%2F90" data-rt-src="http://n3-q.mafengwo.net/s9/M00/82/C2/wKgBs1bykY2AJ411AAgQfyb-9PA89.jpeg?imageView2%2F2%2Fw%2F1360%2Fq%2F90">
-     <span class="img-an"> 图：佛教居士林。 </span>
-    </div>
-    <div class="f-block" id="_j_paragraph_9">
-     <h3> 看点4：贺秘监祠 </h3>
-    </div>
-    <div class="f-block">
-     <img class="_j_lazyload" style="height:453px;width:680px;background:#FCF2DC" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" data-src="http://b1-q.mafengwo.net/s9/M00/84/99/wKgBs1byk6eAY6giAAt4r0DRZ1s62.jpeg?imageView2%2F2%2Fw%2F680%2Fq%2F90" data-rt-src="http://b1-q.mafengwo.net/s9/M00/84/99/wKgBs1byk6eAY6giAAt4r0DRZ1s62.jpeg?imageView2%2F2%2Fw%2F1360%2Fq%2F90">
-     <span class="img-an"> 图：贺秘监祠。 </span>
-    </div>
-    <div class="f-block">
-     <div class="p-section">
-      贺秘监祠，毗邻佛教居士林，是为了纪念唐朝著名诗人“四明狂客”贺知章而建。“少小离家老大回，乡音未改鬓毛衰。儿童相见不相识，笑问客从何处来。”一首《回乡偶书》，相信大家都听说过。现在的这里会定期的举行展览，这次我们去的时候，正在进行的是书画的预展，正式展出大概要四月初了，为期半个月左右。
-     </div>
-    </div>
-    <div class="f-block">
-     <img class="_j_lazyload" style="height:453px;width:680px;background:#FCF2DC" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" data-src="http://b3-q.mafengwo.net/s9/M00/84/A7/wKgBs1byk7eAGoUEAASp_425vTI73.jpeg?imageView2%2F2%2Fw%2F680%2Fq%2F90" data-rt-src="http://b3-q.mafengwo.net/s9/M00/84/A7/wKgBs1byk7eAGoUEAASp_425vTI73.jpeg?imageView2%2F2%2Fw%2F1360%2Fq%2F90">
-     <span class="img-an"> 图：贺秘监祠。 </span>
-    </div>
-    <div class="f-block">
-     <div class="p-section">
-      此次书画展中，蒋中正的题字。
-     </div>
-    </div>
-    <div class="f-block">
-     <img class="_j_lazyload" style="height:453px;width:680px;background:#FCF2DC" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" data-src="http://p1-q.mafengwo.net/s9/M00/84/F6/wKgBs1bylBKAKglrAAUAD88AEXg99.jpeg?imageView2%2F2%2Fw%2F680%2Fq%2F90" data-rt-src="http://p1-q.mafengwo.net/s9/M00/84/F6/wKgBs1bylBKAKglrAAUAD88AEXg99.jpeg?imageView2%2F2%2Fw%2F1360%2Fq%2F90">
-     <span class="img-an"> 图：贺秘监祠。 </span>
-    </div>
-    <div class="f-block" id="_j_paragraph_10">
-     <h3> 看点5：高丽使馆遗址 </h3>
-    </div>
-    <div class="f-block">
-     <div class="p-section">
-      高丽使馆遗址，是昔日宁波港对外交往和中国与高丽友好往来的历史见证。熙宁七年(1074)宁波开始接待高丽使者。北宋政和七年（1117）明州太守楼异奉宋徽宗旨意，在明州设置“高丽司”，管理与高丽国往来的有关政务，并在月湖东岸“菊花洲”上，创建了国家级迎宾馆——高丽使行馆。&nbsp;
-     </div>
-    </div>
-    <div class="f-block">
-     <img class="_j_lazyload" style="height:453px;width:680px;background:#FCF2DC" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" data-src="http://b3-q.mafengwo.net/s9/M00/86/45/wKgBs1bylcyAd8OAAAYbbMPRqoM00.jpeg?imageView2%2F2%2Fw%2F680%2Fq%2F90" data-rt-src="http://b3-q.mafengwo.net/s9/M00/86/45/wKgBs1bylcyAd8OAAAYbbMPRqoM00.jpeg?imageView2%2F2%2Fw%2F1360%2Fq%2F90">
-     <span class="img-an"> 图：高丽使馆遗址。 </span>
-    </div>
-    <div class="f-block">
-     <div class="p-section">
-      高丽使馆是北宋时期明州接待高丽来使的住所，是中国大陆与朝鲜半岛友好往来的历史见证，也是宁波“海上丝绸之路”与外埠政治、商贸往来的一处的重要文化遗存。
-     </div>
-    </div>
-    <div class="f-block">
-     <img class="_j_lazyload" style="height:453px;width:680px;background:#FCF2DC" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" data-src="http://b2-q.mafengwo.net/s9/M00/86/80/wKgBs1bylhiAXTkiAAaULrW2Vqk08.jpeg?imageView2%2F2%2Fw%2F680%2Fq%2F90" data-rt-src="http://b2-q.mafengwo.net/s9/M00/86/80/wKgBs1bylhiAXTkiAAaULrW2Vqk08.jpeg?imageView2%2F2%2Fw%2F1360%2Fq%2F90">
-     <span class="img-an"> 图：高丽使馆遗址。 </span>
-    </div>
-    <div class="f-block">
-     <div class="p-section">
-      当时高丽几乎年年都遣岁使前来朝贡，中国的政治制度、文化制度以及服饰、音乐、绘画、科技、宗教等各个方面，开始更广泛的传播、影响朝鲜半岛乃至整个东亚地区。北宋末期，这种交流达到一个高峰。由于北方战争引起的交通阻塞，明州一度成为对高丽等国官方往来以及海外贸易的唯一合法港口。
-     </div>
-    </div>
-    <div class="f-block" id="_j_paragraph_11">
-     <h3> 看点7：银台第官宅博物馆 </h3>
-    </div>
-    <div class="f-block">
-     <img class="_j_lazyload" style="height:453px;width:680px;background:#FCF2DC" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" data-src="http://n1-q.mafengwo.net/s9/M00/87/63/wKgBs1bylzmAI7r9AAksXWIlZFI21.jpeg?imageView2%2F2%2Fw%2F680%2Fq%2F90" data-rt-src="http://n1-q.mafengwo.net/s9/M00/87/63/wKgBs1bylzmAI7r9AAksXWIlZFI21.jpeg?imageView2%2F2%2Fw%2F1360%2Fq%2F90">
-     <span class="img-an"> 图：银台地。 </span>
-    </div>
-    <div class="f-block">
-     <div class="p-section">
-      银台第官宅博物馆，建于清道光三年(1823)，主人童槐曾任江西、山东按察使，后改任通政司副使。按察使别称臬台，通政司别称银台，故童宅有“臬台第”、“银台第”之称。童槐之子童华以礼部右侍郎入南书房行走，为光绪皇帝的老师，童宅又被视为“帝师故居”。
-     </div>
-    </div>
-    <div class="f-block">
-     <img class="_j_lazyload" style="height:1020px;width:680px;background:#FCF2DC" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" data-src="http://n1-q.mafengwo.net/s9/M00/87/76/wKgBs1byl1CAKjodAAM_8E4XXaY04.jpeg?imageView2%2F2%2Fw%2F680%2Fq%2F90" data-rt-src="http://n1-q.mafengwo.net/s9/M00/87/76/wKgBs1byl1CAKjodAAM_8E4XXaY04.jpeg?imageView2%2F2%2Fw%2F1360%2Fq%2F90">
-     <span class="img-an"> 图：银台地。 </span>
-    </div>
-    <div class="f-block">
-     <div class="p-section">
-      银台第坐北朝南，面向月湖，现中轴线上有门厅、大厅、正楼、后堂等建筑，东西两侧有厢房、书楼，占地面积约2300平方米。建筑格局规整，布置合理，用材考究，装饰具有浓郁的地方风格，是宁波城区内清代中晚期官宦住宅的典型。为我们了解中国古代官宅建筑艺术、清代家具艺术、官宦人家的生活及内在的文化价值提供实例，从而加深对中国历史的认识。
-     </div>
-    </div>
-    <div class="f-block">
-     <img class="_j_lazyload" style="height:453px;width:680px;background:#FCF2DC" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" data-src="http://b2-q.mafengwo.net/s9/M00/88/5E/wKgBs1bymJ2AADwaAA3QGK9EYo835.jpeg?imageView2%2F2%2Fw%2F680%2Fq%2F90" data-rt-src="http://b2-q.mafengwo.net/s9/M00/88/5E/wKgBs1bymJ2AADwaAA3QGK9EYo835.jpeg?imageView2%2F2%2Fw%2F1360%2Fq%2F90">
-     <span class="img-an"> 图：银台地。 </span>
-    </div>
-    <div class="f-block" id="_j_paragraph_12">
-     <h3> 看点8：海曙美术馆 </h3>
-    </div>
-    <div class="f-block">
-     <img class="_j_lazyload" style="height:453px;width:680px;background:#FCF2DC" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" data-src="http://n2-q.mafengwo.net/s9/M00/89/5E/wKgBs1bymfiAcvgVAAsBie-ATAA36.jpeg?imageView2%2F2%2Fw%2F680%2Fq%2F90" data-rt-src="http://n2-q.mafengwo.net/s9/M00/89/5E/wKgBs1bymfiAcvgVAAsBie-ATAA36.jpeg?imageView2%2F2%2Fw%2F1360%2Fq%2F90">
-     <span class="img-an"> 图：沙曙美术馆。 </span>
-    </div>
-    <div class="f-block">
-     <div class="p-section">
-      海曙美术馆，定期会在此展出美术作品。一场艺术的邂逅。
-     </div>
-    </div>
-    <div class="f-block">
-     <img class="_j_lazyload" style="height:453px;width:680px;background:#FCF2DC" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" data-src="http://p4-q.mafengwo.net/s9/M00/8A/4F/wKgBs1bymz-AYPxvAAfAPfVCGDE19.jpeg?imageView2%2F2%2Fw%2F680%2Fq%2F90" data-rt-src="http://p4-q.mafengwo.net/s9/M00/8A/4F/wKgBs1bymz-AYPxvAAfAPfVCGDE19.jpeg?imageView2%2F2%2Fw%2F1360%2Fq%2F90">
-     <span class="img-an"> 图：沙曙美术馆。 </span>
-    </div>
-    <div class="f-block" id="_j_paragraph_13">
-     <h3> 看点9：北园游船 </h3>
-    </div>
-    <div class="f-block">
-     <img class="_j_lazyload" style="height:453px;width:680px;background:#FCF2DC" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" data-src="http://n3-q.mafengwo.net/s9/M00/8A/BB/wKgBs1bym9qAOxZEAAuGSpFVHE073.jpeg?imageView2%2F2%2Fw%2F680%2Fq%2F90" data-rt-src="http://n3-q.mafengwo.net/s9/M00/8A/BB/wKgBs1bym9qAOxZEAAuGSpFVHE073.jpeg?imageView2%2F2%2Fw%2F1360%2Fq%2F90">
-     <span class="img-an"> 图：北园。 </span>
-    </div>
-    <div class="f-block">
-     <img class="_j_lazyload" style="height:453px;width:680px;background:#FCF2DC" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" data-src="http://n1-q.mafengwo.net/s9/M00/8A/CC/wKgBs1bym_WAMPOFAAj3JB4jv4s97.jpeg?imageView2%2F2%2Fw%2F680%2Fq%2F90" data-rt-src="http://n1-q.mafengwo.net/s9/M00/8A/CC/wKgBs1bym_WAMPOFAAj3JB4jv4s97.jpeg?imageView2%2F2%2Fw%2F1360%2Fq%2F90">
-     <span class="img-an"> 图：北园游船。 </span>
-    </div>
-    <div class="f-block">
-     <div class="p-section">
-      如果有兴趣游船湖上，可以参考的价目表。
-     </div>
-    </div>
-    <div class="f-block">
-     <img class="_j_lazyload" style="height:1210px;width:680px;background:#FCF2DC" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" data-src="http://p4-q.mafengwo.net/s9/M00/8B/24/wKgBs1bynG2AeZDfAAcjcJHD7oI61.jpeg?imageView2%2F2%2Fw%2F680%2Fq%2F90" data-rt-src="http://p4-q.mafengwo.net/s9/M00/8B/24/wKgBs1bynG2AeZDfAAcjcJHD7oI61.jpeg?imageView2%2F2%2Fw%2F1360%2Fq%2F90">
-     <span class="img-an"> 图：游船价格表。 </span>
-    </div>
-    <div class="f-block" id="_j_paragraph_14">
-     <h2> 营业信息 </h2>
-    </div>
-    <div class="f-block">
-     <div class="p-section">
-      <b> 门票价格： </b> 免费。
-      <br>
-      <b> 地址信息： </b> 宁波市柳汀街。
-      <br>
-     </div>
-    </div>
-   </div>
+    <p th:text="${gonglue.getDescription()}">
+    <i class="mark"></i>
+    </p>
+    <div th:utext="${gonglue.getContent()}"></div>
 
-      <p>原文链接： <a th:text="${link}" th:href="${link}"></a></p>
+    <a th:href="${gonglue.getUrl()}">原文链接：<span th:text="${gonglue.getUrl()}"></span> </a>
 
-   <hr class="simple" style="color:#ffc107;" />
    <div class="l-comment">
     <div class="clearfix com-form">
      <div class="img">
