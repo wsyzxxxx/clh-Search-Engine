@@ -17,7 +17,6 @@ public class WebPageData {
     public void setTitle(String title) {
         this.title = title;
     }
-//123123
 
     public String getUrl() {
         return url;
@@ -64,4 +63,16 @@ public class WebPageData {
         this.base64PictureCode = base64PictureCode;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof WebPageData)){
+            return false;
+        }
+        return this.url.equals(((WebPageData) obj).url);
+    }
+
+    @Override
+    public int hashCode() {
+        return this.url.hashCode();
+    }
 }
