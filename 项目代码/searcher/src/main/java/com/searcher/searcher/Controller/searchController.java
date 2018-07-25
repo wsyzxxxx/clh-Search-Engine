@@ -3,6 +3,7 @@ package com.searcher.searcher.Controller;
 import com.searcher.searcher.DataFormat.GongLue_Data;
 import com.searcher.searcher.DataFormat.WebPageData;
 import com.searcher.searcher.SearchEngine;
+import com.searcher.searcher.Service.TagService;
 import org.apache.commons.io.IOUtils;
 import org.elasticsearch.common.recycler.Recycler;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,14 +20,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Base64;
-import java.util.List;
-import java.util.Vector;
+import java.util.*;
 
 @Controller
 @EnableAutoConfiguration
 public class searchController {
+    @Autowired
+    TagService tagService;
+
     private SearchEngine searchEngine = new SearchEngine("localhost", 9200,"http");
 
     @RequestMapping("/search")
@@ -105,7 +106,6 @@ public class searchController {
             model.addAttribute("count", xianlu.size());//结果总数
             model.addAttribute("curr",curr); //当前页码
             List<WebPageData> listofxianlu=new ArrayList<>(); //为了分页
-            System.out.println("curr*limit="+curr*limit+" xianlu.size="+xianlu.size());
 
             int start,end;
             start=curr*limit-limit;
@@ -173,7 +173,7 @@ public class searchController {
     String detail(@Param("id") String id, @Param("type") Integer type, Model model) {
 
         //添加用户登录状态
-        UserDetails userDetails;
+        UserDetails userDetails=null;
         if(SecurityContextHolder.getContext()
                 .getAuthentication()
                 .getPrincipal() instanceof UserDetails)
@@ -220,8 +220,15 @@ public class searchController {
                 Vector<WebPageData> result_temp=searchEngine.search(id,"clh-search-engine",WebPageData.class,"title");
                 WebPageData result=result_temp.firstElement();
                 model.addAttribute("result",result);
+                if(userDetails!=null)
+                {  //用户已登录，则记录浏览的标签
+                    for(String tag:result.getTags())
+                    {
+                        tagService.add_tag(userDetails.getUsername(),tag);
+                    }
+                }
 
-                System.out.println("size= "+result.getBase64PictureCode().size());
+
 
             } catch (IOException e) {
                 e.printStackTrace();
@@ -238,7 +245,7 @@ public class searchController {
     String detail(Model model) {
 
 
-        UserDetails userDetails;
+        UserDetails userDetails=null;
         if(SecurityContextHolder.getContext()
                 .getAuthentication()
                 .getPrincipal() instanceof UserDetails)
@@ -255,6 +262,24 @@ public class searchController {
         {
             model.addAttribute("state",0);
         }
+
+        String username=userDetails.getUsername();
+
+        Set<String> tags=tagService.getTags(username);
+        Vector<WebPageData> recommends= null;
+        try {
+            System.out.println("tagsize"+tags.size());
+            recommends = searchEngine.getRecommendation("clh-search-engine",tags);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.println("recsize"+recommends.size());
+        model.addAttribute("recommend",recommends);
+
+
 
 
         return "recommend";

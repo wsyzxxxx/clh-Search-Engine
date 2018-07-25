@@ -1,10 +1,7 @@
 package com.searcher.searcher;
-import com.searcher.searcher.DataFormat.GongLue_Data;
 import com.searcher.searcher.DataFormat.WebPageData;
 import com.searcher.searcher.Spider.Spider;
 import com.alibaba.fastjson.JSON;
-import com.searcher.searcher.DataFormat.WebPageData;
-import com.searcher.searcher.Spider.Spider;
 import org.apache.http.HttpHost;
 import org.elasticsearch.action.admin.indices.create.CreateIndexRequest;
 import org.elasticsearch.action.admin.indices.delete.DeleteIndexRequest;
@@ -22,10 +19,11 @@ import org.elasticsearch.search.SearchHits;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 
 import java.io.IOException;
-import java.util.Scanner;
-import java.util.Vector;
+import java.util.*;
+
 
 public class SearchEngine{
+
     RestHighLevelClient client;
     public SearchEngine(String host, int port, String protocol){
         client = new RestHighLevelClient(RestClient.builder(new HttpHost(host, port, protocol)));
@@ -98,6 +96,7 @@ public class SearchEngine{
 
         for(WebPageData i:data){
 
+
             String jsonString = JSON.toJSONString(cl.cast(i));
             IndexRequest indexRequest = new IndexRequest(indexName, "doc");
             indexRequest.source(jsonString, XContentType.JSON);
@@ -105,5 +104,56 @@ public class SearchEngine{
         }
         RefreshRequest refresh = new RefreshRequest(indexName);
         client.indices().refresh(refresh);
+    }
+
+    public Vector<WebPageData> getRecommendation(String indexName, Set<String> tags) throws IOException, InterruptedException {
+        TreeMap<Integer, Set<WebPageData>> allData = new TreeMap<>();
+        HashMap<WebPageData, Integer> dataFreq = new HashMap<>();
+        for(String key : tags){
+            Vector<WebPageData> tempResult = this.search(key, indexName, WebPageData.class, "tags");
+            for (WebPageData data : tempResult){
+                if (!dataFreq.containsKey(data)){
+                    dataFreq.put(data, 1);
+                    if (!allData.containsKey(1)){
+                        Set<WebPageData> temp = new HashSet<>();
+                        temp.add(data);
+                        allData.put(1, temp);
+                    } else {
+                        allData.get(1).add(data);
+                    }
+                } else {
+                    int freq = dataFreq.get(data);
+
+                    allData.get(freq).remove(data);
+                    dataFreq.put(data, freq + 1);
+
+                    if (!allData.containsKey(freq + 1)){
+                        Set<WebPageData> temp = new HashSet<>();
+                        temp.add(data);
+                        allData.put(freq + 1, temp);
+                    } else {
+                        allData.get(freq + 1).add(data);
+                    }
+
+                    if (allData.get(freq).size() == 0){
+                        allData.remove(freq);
+                    }
+                }
+            }
+        }
+
+        Vector<WebPageData> result = new Vector<>();
+        Map.Entry<Integer, Set<WebPageData>> entry = allData.lastEntry();
+        while(result.size() < 10 && entry != null){
+            assert entry != null;
+            for (WebPageData i : entry.getValue()){
+                result.add(i);
+                if (result.size() == 10) break;
+            }
+            entry = allData.lowerEntry(entry.getKey());
+        }
+
+        assert result.size() <= 10;
+        return result;
     }
 }

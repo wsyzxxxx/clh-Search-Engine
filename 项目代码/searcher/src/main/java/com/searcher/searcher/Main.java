@@ -5,13 +5,16 @@ import com.searcher.searcher.DataFormat.WebPageData;
 
 import com.searcher.searcher.Spider.Spider;
 import com.searcher.searcher.Spider.mafengwo.*;
-import com.vividsolutions.jts.awt.PointShapeFactory;
 
-import java.util.Scanner;
 import java.util.Vector;
+
 
 public class Main {
     public static void main(String[] args){
+
+
+
+
         SearchEngine searchEngine = new SearchEngine("localhost", 9200,"http");
         Spider spider = new spider_xianlu();
         Spider spider1=new spider_gonglue();
@@ -42,9 +45,9 @@ public class Main {
           //  searchEngine.createIndex("gonglue");
           //  searchEngine.updateData("gonglue", testData2);
 
-            searchEngine.updateData("gonglue", spider1);
+      //      searchEngine.updateData("gonglue", spider1);
 
-            //     searchEngine.updateData("clh-search-engine",spider);
+                 searchEngine.updateData("clh-search-engine",spider);
 
             Vector<WebPageData> result = searchEngine.search("一",
                     "gonglue",testData2.get(0).getClass(),
@@ -58,4 +61,7 @@ public class Main {
         }
         return;
     }
+
+
+
 }

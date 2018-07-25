@@ -14,7 +14,7 @@ import java.util.List;
 
 @Entity
 public class SysUser implements UserDetails {
-    @Id
+     @Id
     @GeneratedValue
     private Long id;
     public String username;

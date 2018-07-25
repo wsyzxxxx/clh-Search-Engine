@@ -22,6 +22,7 @@ import java.util.Vector;
 import java.util.logging.Level;
 import com.searcher.searcher.Spider.Spider;
 
+
 public class spider_xianlu implements Spider{
 
 
@@ -39,7 +40,7 @@ public class spider_xianlu implements Spider{
        HashSet<String> visited=new HashSet<String>();
         HashSet<String> tovisit=new HashSet<String>();
         String next="";
-        String url=null;
+        String url="http://www.mafengwo.cn/sales/";
         int step=0;
         while(step<100) {
             step++;
